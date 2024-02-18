@@ -1,7 +1,7 @@
-NO ../textures/egyptians.png
-SO ../textures/mosaic.png
-WE ../textures/window.png
-EA ../textures/cristal.png
+NO ../textures/arte-egipcio.jpg
+SO ../textures/mandala-kalachakra.jpg
+WE ../textures/pergamon.jpg
+EA ../textures/parc-guell-gaudi.jpg
 
 F 220,100,0
 C 225,30,0

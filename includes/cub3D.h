@@ -5,8 +5,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include "libft/libft.h"
-# include "MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # define P 64
 # define EXT ".cub"
 //# define SECONDS 0.03
@@ -26,27 +26,25 @@ typedef enum e_error
 	ERROR_NO_MAP_FILE = 100,
 	ERROR_TOO_MANY_ARGMTS,
 	ERROR_INVALID_FILE_NAME,
-	ERROR_FILE_FD,
-	ERROR_EMPTY_FILE,
+	ERROR_MAP_FILE_FD,
 	ERROR_FILE_INVALID_ITEM,
 	ERROR_FILE_DUPLICATE_TEXTURE,
 	ERROR_NORTH_TEXTURE_FILE_FD,
 	ERROR_SOUTH_TEXTURE_FILE_FD,
 	ERROR_WEST_TEXTURE_FILE_FD,
 	ERROR_EAST_TEXTURE_FILE_FD,
-	ERROR_INVALID_RGB_NUMBER,
+	ERROR_INVALID_NUMBER_OF_RGB_ITEMS,
 	ERROR_INVALID_RGB_RANGE,
-//	ERROR_FILE_SAME_COLOR_FLOOR_CEILING,
 	ERROR_FILE_DUPLICATE_FLOOR_COLOR,
 	ERROR_FILE_DUPLICATE_CEILING_COLOR,
-	ERROR_MISSING_ITEM_FLOOR_COLOR,
-	ERROR_MISSING_ITEM_CEILING_COLOR,
-	ERROR_MAP_EMPTY_LINE,
+	ERROR_MAP_FILE_INCOMPLETE_DATA,
+	ERROR_MAP_EMPTY_LINE_IN_MAP,
 	ERROR_MAP_FORBIDDEN_CHAR,
 	ERROR_MAP_NO_PLAYER,
 	ERROR_MAP_NO_CLOSED_MAP,
+	ERROR_MALLOC,
 
-	// game errors (juan):
+	// graphics errors (juan):
 	ERROR_GAME_WINDOW = 200,
 	ERROR_MAP_INVALID_TEXTURE_FILE,
 
@@ -98,6 +96,7 @@ typedef struct s_data
 	int		*rgb_c;
 	int		*rgb_f;
 	t_ply 	pos;
+	int		flag;
 }			t_data;
 
 /* ************************************************************* */
@@ -107,9 +106,12 @@ typedef struct s_data
 
 void	ft_parse_file_name(t_data *d, char *file);
 void	ft_parse_file_info(t_data *d);
+void	ft_get_paths_and_colors(t_data *d);
+void	ft_rgb_atoi(t_data *d, char camp, char **color);
+void	ft_get_map(t_data *d);
 
 /* ************************************************************* */
-/* ********    200 - CHECKING THE INFO OF THE FILE     ********* */
+/* ********    200 - CHECKING THE INFO OF THE MAP      ********* */
 /* ************************************************************* */
 
 void	ft_check_map(t_data *d);
@@ -136,11 +138,22 @@ void	ft_play_game(t_data *d);
 
 void	ft_error_argmts(int error);
 void	ft_error_file(t_data *d, int error);
+void	ft_error_pull_data(t_data *d, int error, char **mtx);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */
 /* ************************************************************* */
 
-char	*ft_delete_nl(char *str)
+void	ft_free_structs(t_data *d);
+
+char	*ft_delete_nl(char *str);
+int		ft_is_str_digits(char *str);
+int		ft_matrix_len(char **str);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_str_equal(char *s1, char *s2);
+void	ft_free_null_void_return(char **str);
+char	*ft_strjoin_free(char *s1, char *s2);
+int		ft_detect_forbidden_chars(char *name);
+char	**ft_freedom_null(char **matrix);
 
 #endif

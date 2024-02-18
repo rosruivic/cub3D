@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   msh_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: roruiz-v <roruiz-v@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 17:17:09 by roruiz-v          #+#    #+#             */
-/*   Updated: 2024/02/18 02:03:03 by roruiz-v         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "minishell.h"
+//#include "../includes/cub3D.h"
+#include "includes/cub3D.h"
 
 int	ft_is_str_digits(char *str)
 {
@@ -206,7 +195,7 @@ char	**ft_freedom_null(char **matrix)
 	size_t	i;
 
 	i = 0;
-	if (matrix/*  != NULL */)
+	if (matrix)
 	{
 		while (matrix[i])
 		{

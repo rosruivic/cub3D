@@ -1,4 +1,5 @@
-#include "../includes/cub3D.h"
+//#include "../includes/cub3D.h"
+#include "includes/cub3D.h"
 
 /* Si falla malloc, exit directo pq no hay nada que liberar hasta ahora */
 void	ft_parse_file_name(t_data *d, char *file)

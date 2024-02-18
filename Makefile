@@ -2,12 +2,18 @@
 NAME	=	cub3D
 
 SRC		=	cub3D.c \
-			procedures_parser/parse_file_name.c \
-			procedures_parser/parse_file_info.c \
-			procedures_errors/parser_errors.c	\
-			utils/cub_utils.c
+			parse_file_name.c \
+			parse_file_info.c \
+			parse_file_get_paths_and_colors.c \
+			parse_file_rgb_atoi.c \
+			parse_file_get_map.c \
+			parse_file_free_structs.c \
+			parser_errors.c \
+			cub_utils.c \
+			msh_utils.c
 
-OBJS	= $(SRC:.c=.o)
+#OBJS	= $(SRC:.c=.o)
+OBJS	= $(notdir $(SRC:.c=.o))
 OFILES	= $(addprefix obj/, $(OBJS))
 
 CC		= gcc
@@ -30,13 +36,20 @@ all:	$(NAME)
 #	compile both libft and MLX42, and then we compile the .a files of both libraries
 #	with the apropiate flags and frameworks.
 
-$(NAME): $(OFILES) $(LIBFT_PATH) $(MLX42_PATH)
-		$(CC) $(FLAGS) $(OFILES) $(EXTRA) $(LIBFT_PATH) $(MLX42_PATH) -o $(NAME)
+$(NAME): $(OFILES) $(LIBFT_PATH)
+		$(CC) $(FLAGS) $(OFILES) $(LIBFT_PATH) -o $(NAME)
 		clear
+
+#$(NAME): $(OFILES) $(LIBFT_PATH) $(MLX42_PATH)
+#		$(CC) $(FLAGS) $(OFILES) $(EXTRA) $(LIBFT_PATH) $(MLX42_PATH) -o $(NAME)
+#		clear
 		
 $(OFILES): $(SRC)
 		@mkdir -p obj/
 		$(CC) $(FLAGS) -c $(SRC)
+# En este código, $< es la primera dependencia (el archivo fuente correspondiente) 
+# y $@ es el objetivo (el archivo objeto correspondiente):
+#		$(CC) $(FLAGS) -c $< -o $@
 		@mv *.o obj/
 
 $(LIBFT_PATH):
@@ -53,11 +66,11 @@ debug: $(LIBFT_PATH) $(MLX42_PATH)
 clean:
 		rm -rf obj
 		make -C libft clean
-		make -C MLX42 clean
+#		make -C MLX42 clean
 
 fclean: clean
 		@make fclean -C libft/
-		@make fclean -C MLX42/
+#		@make fclean -C MLX42/
 		@rm $(NAME)
 
 re:	fclean all

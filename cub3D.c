@@ -1,10 +1,10 @@
 #include "includes/cub3D.h"
 
-void	ft_graphic(t_data *d)
+/* void	ft_graphic(t_data *d)
 {
 	ft_paint_window(d);
 	ft_play_game(d);
-}
+} */
 
 static void	ft_parser(t_data *d, char *file)
 {
@@ -23,6 +23,7 @@ static void	ft_init_data(t_data *d)
 	d->path.ea = NULL; 	// liberar tras conv_img_to_texture
 	d->rgb_c = NULL;	// liberar tras pintar el cielo
 	d->rgb_f = NULL;	// liberar tras pintar el suelo
+	d->flag = 0;		// cd detect 1st map line, check -> (1) = both paths & rgb ok
 }
 
 int main(int argc, char **argv)
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
 		ft_error_argmts(ERROR_TOO_MANY_ARGMTS);
 	ft_init_data(&data);
 	ft_parser(&data, argv[1]);
-	ft_graphic(&data);
+//	ft_graphic(&data);
+	ft_free_structs(&data);
 	return (0);
 }

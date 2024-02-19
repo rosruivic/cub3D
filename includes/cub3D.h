@@ -13,10 +13,11 @@
 
 typedef enum e_dir
 {
-	NORTH = 0,
-	SOUTH = 1,
-	WEST = 2,
-	EAST = 3
+	N = 0,
+	S = 1,
+	W = 2,
+	E = 3,
+	NONE = 42
 }	t_dir;
 
 typedef enum e_error
@@ -38,10 +39,11 @@ typedef enum e_error
 	ERROR_FILE_DUPLICATE_FLOOR_COLOR,
 	ERROR_FILE_DUPLICATE_CEILING_COLOR,
 	ERROR_MAP_FILE_INCOMPLETE_DATA,
-	ERROR_MAP_EMPTY_LINE_IN_MAP,
+	ERROR_MAP_INVALID_MAP,
 	ERROR_MAP_FORBIDDEN_CHAR,
 	ERROR_MAP_NO_PLAYER,
-	ERROR_MAP_NO_CLOSED_MAP,
+	ERROR_MAP_DUPLICATE_PLAYER,
+	ERROR_MAP_NO_CLOSED_WALLS,
 	ERROR_MALLOC,
 
 	// graphics errors (juan):
@@ -62,9 +64,9 @@ typedef struct s_paths
 
 typedef struct s_player
 {
-	int	x;
-	int	y;
-	int	dir;
+	int		x;
+	int		y;
+	t_dir	d;
 }		t_ply;
 
 typedef struct s_texture
@@ -87,8 +89,10 @@ typedef struct s_data
 {
 	char	*file;
 	int		fd;
+	char	*gnl;
+	char	*tmp;
 	char	**map;
-	char	**twin_map;
+	char	**sandbox;
 	mlx_t	*mlx;
 	t_path	path;
 	t_tex	tex;
@@ -114,9 +118,8 @@ void	ft_get_map(t_data *d);
 /* ********    200 - CHECKING THE INFO OF THE MAP      ********* */
 /* ************************************************************* */
 
-void	ft_check_map(t_data *d);
-void	ft_loc_player(t_data *d);
-void	ft_right_path(t_data *d);
+void	ft_check_valid_map(t_data *d);
+void	ft_check_closed_walls(t_data *d);
 
 /* ************************************************************* */
 /* ************   300 - PAINTING THE GAME WINDOW    ************ */
@@ -139,6 +142,8 @@ void	ft_play_game(t_data *d);
 void	ft_error_argmts(int error);
 void	ft_error_file(t_data *d, int error);
 void	ft_error_pull_data(t_data *d, int error, char **mtx);
+void	ft_error_pull_map(t_data *d, int error);
+void	ft_error_map_data(t_data *d, int error);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */
@@ -155,5 +160,11 @@ void	ft_free_null_void_return(char **str);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_detect_forbidden_chars(char *name);
 char	**ft_freedom_null(char **matrix);
+
+/* ************************************************************* */
+/* *************           999 - DEBUG            ************** */
+/* ************************************************************* */
+
+void	ft_print_data(t_data *d);
 
 #endif

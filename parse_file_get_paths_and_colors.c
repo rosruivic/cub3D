@@ -34,23 +34,26 @@ static void	ft_pull_rgb_colors(t_data *d, char **color)
 	char	**rgb;
 
 	rgb = ft_split(color[1], ',');
-	if (ft_matrix_len(rgb) != 3)
+	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[0] = %s\n", color[0], rgb[0]);
+	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[1] = %s\n", color[0], rgb[1]);
+	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[2] = %s\n----\n", color[0], rgb[2]);
+	if (ft_matrix_len(rgb) != 3 || ft_str_equal(rgb[2], "\n"))
 	{
 		rgb = ft_freedom_null(rgb);
 		ft_error_pull_data(d, ERROR_INVALID_NUMBER_OF_RGB_ITEMS, color);
 	}
-	rgb[1] = ft_delete_nl(ft_strdup(rgb[1]));
+	rgb[2] = ft_delete_nl(ft_strdup(rgb[2]));
 	if (ft_str_equal(color[0], "C"))
 	{
 		if (d->rgb_c)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_CEILING_COLOR, color);
-		ft_rgb_atoi(d, 'C', color);
+		ft_rgb_atoi(d, 'C', rgb);
 	}
 	if (ft_str_equal(color[0], "F"))
 	{
 		if (d->rgb_f)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_FLOOR_COLOR, color);
-		ft_rgb_atoi(d, 'F', color);
+		ft_rgb_atoi(d, 'F', rgb);
 	}
 }
 
@@ -61,7 +64,7 @@ static void	ft_what_is_this_gnl(t_data *d, char *gnl)
 	if (gnl[0] == '\n')
 		return ;
 	item = ft_split(gnl, ' ');
-	if (ft_matrix_len(item) != 2)
+	if (ft_matrix_len(item) != 2 && !d->flag)
 	{
 		item = ft_freedom_null(item);
 		ft_error_file(d, ERROR_FILE_INVALID_ITEM);

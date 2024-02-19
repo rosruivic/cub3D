@@ -7,6 +7,8 @@ SRC		=	cub3D.c \
 			parse_file_get_paths_and_colors.c \
 			parse_file_rgb_atoi.c \
 			parse_file_get_map.c \
+			parse_check_valid_map.c \
+			parse_check_closed_walls.c \
 			parse_file_free_structs.c \
 			parser_errors.c \
 			cub_utils.c \

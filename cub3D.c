@@ -27,13 +27,13 @@ static void	ft_init_data(t_data *d)
 
 void	ft_print_data(t_data *d)
 {
-	ft_printf("FICHERO MAPA:\n");
+/* 	ft_printf("FICHERO MAPA:\n");
 	if (d->map)
 	{
 		int i = -1;
 		while(d->map[++i])
 			ft_printf("%s\n", d->map[i]);
-	}
+	} */
 	ft_printf("\n");
 	ft_printf("FICHERO del mapa:    %s\n", d->file);
 	ft_printf("FICHERO textura NO:  %s\n", d->path.no);

@@ -1,3 +1,15 @@
+# --- Colors ---
+
+BOLD      := \033[1m
+BLACK     := \033[30;1m
+RED       := \033[31;1m
+GREEN     := \033[32;1m
+YELLOW    := \033[33;1m
+BLUE      := \033[34;1m
+MAGENTA   := \033[35;1m
+CYAN      := \033[36;1m
+WHITE     := \033[37;1m
+RESET     := \033[0m
 
 NAME	=	cub3D
 
@@ -14,8 +26,8 @@ SRC		=	cub3D.c \
 			cub_utils.c \
 			msh_utils.c
 
-#OBJS	= $(SRC:.c=.o)
-OBJS	= $(notdir $(SRC:.c=.o))
+OBJS	= $(SRC:.c=.o)
+#OBJS	= $(notdir $(SRC:.c=.o))
 OFILES	= $(addprefix obj/, $(OBJS))
 
 CC		= gcc
@@ -31,28 +43,24 @@ LIBFT_PATH = libft/libft.a
 
 MLX42_PATH = MLX42/libmlx42.a
 
+HEADERS = -I ./includes
+
 all:	$(NAME)
+
+vpath %.c source/src_parser source/src_errors source/src_graphics source/src_utils
 
 #	We cannot call (LIBFT) or (MLX42) in (NAME) because it would be searching for the
 #	".a" files before creating them, resulting in an error. We 1st create the rules to
 #	compile both libft and MLX42, and then we compile the .a files of both libraries
 #	with the apropiate flags and frameworks.
 
-$(NAME): $(OFILES) $(LIBFT_PATH)
-		$(CC) $(FLAGS) $(OFILES) $(LIBFT_PATH) -o $(NAME)
-		clear
+$(OFILES): obj/%.o: %.c
+		@mkdir -p obj
+		@$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
 
-#$(NAME): $(OFILES) $(LIBFT_PATH) $(MLX42_PATH)
-#		$(CC) $(FLAGS) $(OFILES) $(EXTRA) $(LIBFT_PATH) $(MLX42_PATH) -o $(NAME)
-#		clear
-		
-$(OFILES): $(SRC)
-		@mkdir -p obj/
-		$(CC) $(FLAGS) -c $(SRC)
-# En este código, $< es la primera dependencia (el archivo fuente correspondiente) 
-# y $@ es el objetivo (el archivo objeto correspondiente):
-#		$(CC) $(FLAGS) -c $< -o $@
-		@mv *.o obj/
+$(NAME): $(OFILES) $(LIBFT_PATH)
+		$(CC) $(FLAGS) $(OFILES) $(LIBFT_PATH) $(HEADERS) -o $(NAME)
+		clear
 
 $(LIBFT_PATH):
 		make -C libft all
@@ -76,5 +84,9 @@ fclean: clean
 		@rm $(NAME)
 
 re:	fclean all
+
+norma:
+	@echo "$(BLUE)$(BOLD)Checking norminette...$(RESET)"
+	@norminette src/* include/*
 
 .PHONY: all clean fclean re

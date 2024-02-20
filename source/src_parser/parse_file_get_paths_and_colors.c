@@ -1,5 +1,6 @@
 //#include "../includes/cub3D.h"
-#include "includes/cub3D.h"
+//#include "includes/cub3D.h"
+#include "cub3D.h"
 
 static void	ft_pull_textures_paths(t_data *d, char **tex)
 {

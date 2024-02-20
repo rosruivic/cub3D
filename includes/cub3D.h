@@ -160,6 +160,7 @@ void	ft_free_null_void_return(char **str);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_detect_forbidden_chars(char *name);
 char	**ft_freedom_null(char **matrix);
+void	ft_print_matrix(char **mtx);
 
 /* ************************************************************* */
 /* *************           999 - DEBUG            ************** */

@@ -1,5 +1,6 @@
 //#include "../includes/cub3D.h"
-#include "includes/cub3D.h"
+//#include "includes/cub3D.h"
+#include "cub3D.h"
 
 int	ft_is_str_digits(char *str)
 {

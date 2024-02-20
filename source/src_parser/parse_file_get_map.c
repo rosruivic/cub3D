@@ -1,5 +1,6 @@
 //#include "../includes/cub3D.h"
-#include "includes/cub3D.h"
+//#include "includes/cub3D.h"
+#include "cub3D.h"
 
 static void	ft_reading_map(t_data *d)
 {

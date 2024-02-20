@@ -59,7 +59,7 @@ static int	ft_build_sandbox_inter_lines(t_data *d, int rows)
 	while (++i < rows - 2)
 	{
 		j = 0;
-		d->sandbox[i] = malloc((ft_longer_row(d) + 2) * sizeof(char));
+		d->sandbox[i] = malloc((ft_longer_row(d) + 3) * sizeof(char));
 		if (!d->sandbox[i])
 			ft_error_map_data(d, ERROR_MALLOC);
 		d->sandbox[i][0] = 'X';
@@ -78,7 +78,7 @@ static void	ft_build_sandbox_last_line(t_data *d, int i)
 {
 	int	j;
 
-	d->sandbox[i] = malloc((ft_longer_row(d) + 2) * sizeof(char));
+	d->sandbox[i] = malloc((ft_longer_row(d) + 3) * sizeof(char));
 	if (!d->sandbox[i])
 		ft_error_map_data(d, ERROR_MALLOC);
 	j = -1;

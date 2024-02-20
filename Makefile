@@ -32,7 +32,7 @@ OFILES	= $(addprefix obj/, $(OBJS))
 
 CC		= gcc
 
-FLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
+FLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
 
 EXTRA	= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
 

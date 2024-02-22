@@ -24,7 +24,8 @@ SRC		=	cub3D.c \
 			parse_file_free_structs.c \
 			parser_errors.c \
 			cub_utils.c \
-			msh_utils.c
+			msh_utils.c \
+			prueba.c \
 
 OBJS	= $(SRC:.c=.o)
 #OBJS	= $(notdir $(SRC:.c=.o))
@@ -34,7 +35,7 @@ CC		= gcc
 
 FLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
 
-EXTRA	= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$USER/.brew/opt/glfw/lib/"
+EXTRA	= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 # juan-aga memory-leaks tool:
 # LEAKS = memory-leaks/memory_leaks.a
@@ -58,8 +59,8 @@ $(OFILES): obj/%.o: %.c
 		@mkdir -p obj
 		@$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
 
-$(NAME): $(OFILES) $(LIBFT_PATH)
-		$(CC) $(FLAGS) $(OFILES) $(LIBFT_PATH) $(HEADERS) -o $(NAME)
+$(NAME): $(OFILES) $(LIBFT_PATH) $(MLX42_PATH)
+		$(CC) $(FLAGS) $(EXTRA) $(OFILES) $(LIBFT_PATH) $(MLX42_PATH) $(HEADERS) -o $(NAME)
 		clear
 
 $(LIBFT_PATH):
@@ -76,12 +77,12 @@ debug: $(LIBFT_PATH) $(MLX42_PATH)
 clean:
 		rm -rf obj
 		make -C libft clean
-#		make -C MLX42 clean
+		# make -C MLX42 clean
 
 fclean: clean
 		@make fclean -C libft/
-#		@make fclean -C MLX42/
-		@rm $(NAME)
+		# @make fclean -C MLX42/
+		@rm -rf $(NAME)
 
 re:	fclean all
 

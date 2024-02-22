@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <math.h>
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # define P 64

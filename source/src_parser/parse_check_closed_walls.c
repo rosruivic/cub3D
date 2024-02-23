@@ -21,6 +21,23 @@ static void	ft_cub_flood_fill(int x, int y, t_data *d)
 		ft_cub_flood_fill(x + 1, y, d);
 }
 
+static void	ft_locate_zeroes(t_data *d)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (d->sandbox[++i])
+	{
+		j = -1;
+		while (d->sandbox[i][++j])
+		{
+			if (d->sandbox[i][j] == '0')
+				ft_cub_flood_fill(j, i, d);
+		}
+	}
+}
+
 static int	ft_longer_row(t_data *d)
 {
 	int	len;
@@ -120,6 +137,7 @@ void	ft_check_closed_walls(t_data *d)
 {
 	ft_build_sandbox(d);
 	ft_cub_flood_fill(d->pos.x + 1, d->pos.y + 1, d);
+	ft_locate_zeroes(d);
 	ft_print_matrix(d->sandbox);
 	d->sandbox = ft_freedom_null(d->sandbox);
 }

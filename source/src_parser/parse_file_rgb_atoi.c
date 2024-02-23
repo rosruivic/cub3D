@@ -21,7 +21,7 @@ void	ft_rgb_atoi(t_data *d, char camp, char **color)
 	}
 	while (++i < 3)
 	{
-		if ((ft_strlen(color[i]) > 3)
+		if ((ft_strlen(color[i]) > 3 || !ft_is_str_digits(color[i]))
 			|| (ft_atoi(color[i]) > 255 || ft_atoi(color[i]) < 0))
 			ft_error_pull_data(d, ERROR_INVALID_RGB_RANGE, color);
 		if (camp == 'C')

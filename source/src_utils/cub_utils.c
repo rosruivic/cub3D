@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 char	*ft_delete_nl(char *str)
@@ -14,7 +12,7 @@ char	*ft_delete_nl(char *str)
 	{
 		tmp = ft_substr(str, 0, len - 1);
 		free(str);
-		return(tmp);
+		return (tmp);
 	}
 	return (str);
 }

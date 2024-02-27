@@ -1,13 +1,13 @@
 #include "cub3D.h"
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 
-void ft_error_argmts(int error)
+void	ft_error_argmts(int error)
 {
 	if (error == ERROR_NO_MAP_FILE)
 		ft_putstr_fd("Error\n  No map file given\n", 2);
 	else if (error == ERROR_TOO_MANY_ARGMTS)
 		ft_putstr_fd("Error\n  Too many arguments\n", 2);
+	else if (error == ERROR_MALLOC)
+		ft_putstr_fd("Error\n  Allocating memory fail\n", 2);
 	exit(42);
 }
 
@@ -34,6 +34,7 @@ void	ft_error_file(t_data *d, int error)
 	ft_free_structs(d);
 	exit(42);
 }
+
 /**
  * @brief 
  * 
@@ -78,13 +79,13 @@ void	ft_error_map_data(t_data *d, int error)
 {
 	if (error == ERROR_MAP_FORBIDDEN_CHAR)
 		ft_putstr_fd("Error\n  Map contains forbidden chars\n", 2);
-	if (error == ERROR_MAP_NO_PLAYER)
+	else if (error == ERROR_MAP_NO_PLAYER)
 		ft_putstr_fd("Error\n  No player detected\n", 2);
-	if (error == ERROR_MAP_DUPLICATE_PLAYER)
+	else if (error == ERROR_MAP_DUPLICATE_PLAYER)
 		ft_putstr_fd("Error\n  More than 1 player detected\n", 2);
-	if (error == ERROR_MALLOC)
+	else if (error == ERROR_MALLOC)
 		ft_putstr_fd("Error\n  Allocating memory fail\n", 2);
-	if (error == ERROR_MAP_NO_CLOSED_WALLS)
+	else if (error == ERROR_MAP_NO_CLOSED_WALLS)
 		ft_putstr_fd("Error\n  Map isn't completely rounded by walls\n", 2);
 	ft_printf("DEBUG: ft_error_map_data)\n");
 	ft_free_structs(d);

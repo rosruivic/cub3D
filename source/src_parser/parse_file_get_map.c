@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 static void	ft_reading_map(t_data *d)
@@ -29,6 +27,7 @@ void	ft_get_map(t_data *d)
 		d->gnl = get_next_line(d->fd);
 		if (!d->gnl || !ft_str_equal(d->gnl, "\n"))
 			break ;
+		ft_free_null_void_return(&d->gnl);
 	}
 	if (d->gnl)
 		ft_reading_map(d);

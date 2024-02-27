@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 void	ft_rgb_atoi(t_data *d, char camp, char **color)

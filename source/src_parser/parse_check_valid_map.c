@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 static void	ft_check_player(t_data *d, int i, int j)
@@ -25,6 +23,13 @@ static void	ft_check_player(t_data *d, int i, int j)
 	}
 }
 
+/**
+ * @brief 
+ * At the 2nd while:
+ * // I don't know why 'j' don't catch more than 14 chars:
+ * 	while (d->map[++j] != NULL) 
+ * @param d 
+ */
 static void	ft_check_chars_and_player(t_data *d)
 {
 	int	i;
@@ -34,7 +39,6 @@ static void	ft_check_chars_and_player(t_data *d)
 	j = -1;
 	while (d->map[++i])
 	{
-//		while (d->map[++j] != NULL) // no entiendo por qué j no pilla más de 14 chars
 		while (++j < (int)ft_strlen(d->map[i]))
 		{
 			if (d->map[i][j] != '1' && d->map[i][j] != '0'

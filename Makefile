@@ -21,10 +21,13 @@ SRC		=	cub3D.c \
 			parse_file_get_map.c \
 			parse_check_valid_map.c \
 			parse_check_closed_walls.c \
+			parse_build_sandbox.c \
 			parse_file_free_structs.c \
 			parser_errors.c \
 			cub_utils.c \
 			msh_utils.c \
+			msh_utils_free_null.c \
+			msh_utils_str_cmp_equal.c \
 			prueba.c \
 
 OBJS	= $(SRC:.c=.o)
@@ -33,7 +36,7 @@ OFILES	= $(addprefix obj/, $(OBJS))
 
 CC		= gcc
 
-FLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
 
 EXTRA	= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 

@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 static void	ft_check_valid_files(t_data *d)

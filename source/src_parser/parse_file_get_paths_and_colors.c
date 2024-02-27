@@ -1,5 +1,3 @@
-//#include "../includes/cub3D.h"
-//#include "includes/cub3D.h"
 #include "cub3D.h"
 
 static void	ft_pull_textures_paths(t_data *d, char **tex)
@@ -35,9 +33,6 @@ static void	ft_pull_rgb_colors(t_data *d, char **color)
 	char	**rgb;
 
 	rgb = ft_split(color[1], ',');
-/* 	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[0] = %s\n", color[0], rgb[0]);
-	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[1] = %s\n", color[0], rgb[1]);
-	ft_printf("DEBUG: ft_pull_rgb_colors) %s rgb[2] = %s\n----\n", color[0], rgb[2]); */
 	if (ft_matrix_len(rgb) != 3 || ft_str_equal(rgb[2], "\n"))
 	{
 		rgb = ft_freedom_null(rgb);

@@ -121,6 +121,7 @@ void	ft_get_map(t_data *d);
 
 void	ft_check_valid_map(t_data *d);
 void	ft_check_closed_walls(t_data *d);
+void	ft_build_sandbox(t_data *d);
 
 /* ************************************************************* */
 /* ************   300 - PAINTING THE GAME WINDOW    ************ */

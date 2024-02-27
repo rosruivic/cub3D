@@ -11,7 +11,7 @@ char	*ft_delete_nl(char *str)
 	if (str[len - 1] == '\n')
 	{
 		tmp = ft_substr(str, 0, len - 1);
-		free(str);
+		ft_free_null_void_return(&str);
 		return (tmp);
 	}
 	return (str);

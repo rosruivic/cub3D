@@ -72,9 +72,10 @@ void	ft_build_sandbox(t_data *d)
 	int	i;
 
 	rows = ft_matrix_len(d->map) + 2 + 1;
-	d->sandbox = ft_calloc(rows + 1, sizeof(char *));
+	d->sandbox = calloc((rows + 1), sizeof(char *));
 	if (!d->sandbox)
 		ft_error_map_data(d, ERROR_MALLOC);
+	d->sandbox[rows] = NULL;
 	ft_build_sandbox_first_line(d);
 	i = ft_build_sandbox_inter_lines(d, rows);
 	ft_build_sandbox_last_line(d, i);

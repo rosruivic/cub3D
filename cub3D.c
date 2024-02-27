@@ -65,5 +65,6 @@ int main(int argc, char **argv)
 //	ft_graphic(&data);
 	ft_print_data(&data);
 	ft_free_structs(&data);
-	return (0);
+	exit(0);
+//	return (0);
 }

@@ -41,13 +41,13 @@ FLAGS	= -Wall -Werror -Wextra -g #-fsanitize=address
 EXTRA	= -framework Cocoa -framework OpenGL -framework IOKit -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 # juan-aga memory-leaks tool:
-# LEAKS = memory-leaks/memory_leaks.a
+LEAKS = ../memory-leaks/memory_leaks.a
 
 LIBFT_PATH = libft/libft.a
 
 MLX42_PATH = MLX42/libmlx42.a
 
-HEADERS = -I ./includes
+HEADERS = -I ./includes #-I ../memory-leaks/include
 
 all:	$(NAME)
 
@@ -73,8 +73,8 @@ $(MLX42_PATH):
 		make -C MLX42 all
 
 # If a debug with lldb is needed, do 'make' with this rule:
-debug: $(LIBFT_PATH) $(MLX42_PATH)
-		$(CC) $(FLAGS) $(EXTRA) $(SRC) $(LIBFT_PATH) $(MLX42_PATH) -o $(NAME) -g
+debug: $(OFILES) $(LIBFT_PATH) $(MLX42_PATH)
+		$(CC) $(FLAGS) $(EXTRA) $(OFILES) $(LIBFT_PATH) $(LEAKS) $(MLX42_PATH) -o $(NAME) -g
 		clear
 
 clean:

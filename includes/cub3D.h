@@ -8,6 +8,7 @@
 # include <math.h>
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+//# include "../../memory-leaks/include/memory_leaks.h"
 # define P 64
 # define EXT ".cub"
 //# define SECONDS 0.03

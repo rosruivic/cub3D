@@ -31,13 +31,10 @@ static void	ft_pull_textures_paths(t_data *d, char **tex)
 static void	ft_pull_rgb_colors(t_data *d, char **color)
 {
 	char	**rgb;
-	char	*tmp;
 
-	tmp = ft_strdup(color[1]);
-	free(color[1]);
-	color[1] = ft_delete_nl(tmp);
+	color[1] = ft_delete_nl(color[1]);
 	rgb = ft_split(color[1], ',');
-	if (ft_matrix_len(rgb) != 3 || ft_str_equal(rgb[2], "\n"))
+	if (ft_matrix_len(rgb) != 3)
 	{
 		rgb = ft_freedom_null(rgb);
 		ft_error_pull_data(d, ERROR_INVALID_NUMBER_OF_RGB_ITEMS, color);

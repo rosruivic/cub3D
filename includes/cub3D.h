@@ -15,10 +15,10 @@
 
 typedef enum e_dir
 {
-	N = 0,
-	S = 1,
-	W = 2,
-	E = 3,
+	N = 0, // dir.x = 0, dir.y = 1
+	S = 1, // dir.x = 0, dir.y = -1
+	W = 2, // dir.x = -1, dir.y = 0
+	E = 3, // dir.x = 1, dir.y = 0
 	NONE = 42
 }	t_dir;
 
@@ -55,6 +55,11 @@ typedef enum e_error
 	END = 999
 }	t_error;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}		t_point;
 
 typedef struct s_paths
 {
@@ -66,9 +71,8 @@ typedef struct s_paths
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	t_dir	d;
+	t_point	pos;
+	t_point	dir;
 }		t_ply;
 
 typedef struct s_texture
@@ -89,21 +93,23 @@ typedef struct s_image
 
 typedef struct s_data
 {
-	char	*file;
-	int		fd;
-	char	*gnl;
-	char	*tmp;
-	char	**map;
-	char	**sandbox;
-	mlx_t	*mlx;
-	t_path	path;
-	t_tex	tex;
-	t_img	im;
-	int		*rgb_c;
-	int		*rgb_f;
-	t_ply 	pos;
-	int		flag;
-}			t_data;
+	char		*file;
+	int			fd;
+	char		*gnl;
+	char		*tmp;
+	char		**map;
+	char		**sandbox;
+	mlx_t		*mlx;
+	t_path		path;
+	t_tex		tex;
+	t_img		im;
+	int			*rgb_c;
+	int			*rgb_f;
+	uint_32_t	rgb_c;
+	uint_32_t	rgb_f;
+	t_ply		pos;
+	int			flag;
+}				t_data;
 
 /* ************************************************************* */
 /* ********   100 - CHECKING THE FILE NAME        ************** */

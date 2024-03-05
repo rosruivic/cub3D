@@ -1,22 +1,28 @@
 #include "cub3D.h"
 
+static void	ft_fill_player_dir(t_data *d, int x, int y)
+{
+	d->ply.dir.x = x;
+	d->ply.dir.y = y;
+}
+
 static void	ft_check_player(t_data *d, int i, int j)
 {
 	if (d->map[i][j] == 'N' || d->map[i][j] == 'S'
 		|| d->map[i][j] == 'W' || d->map[i][j] == 'E')
 	{
-		if (d->pos.d == NONE)
+		if (d->ply.pos.x < 0)
 		{
-			d->pos.x = j;
-			d->pos.y = i;
+			d->ply.pos.x = j;
+			d->ply.pos.y = i;
 			if (d->map[i][j] == 'N')
-				d->pos.d = N;
+				ft_fill_player_dir(d, 0, 1);
 			else if (d->map[i][j] == 'S')
-				d->pos.d = S;
+				ft_fill_player_dir(d, 0, -1);
 			else if (d->map[i][j] == 'W')
-				d->pos.d = W;
+				ft_fill_player_dir(d, -1, 0);
 			else if (d->map[i][j] == 'E')
-				d->pos.d = E;
+				ft_fill_player_dir(d, 1, 0);
 		}
 		else
 			ft_error_map_data(d, ERROR_MAP_DUPLICATE_PLAYER);
@@ -50,7 +56,7 @@ static void	ft_check_chars_and_player(t_data *d)
 		}
 		j = -1;
 	}
-	if (d->pos.d == NONE)
+	if (d->ply.pos.x < 0)
 		ft_error_map_data(d, ERROR_MAP_NO_PLAYER);
 }
 

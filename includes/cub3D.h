@@ -6,21 +6,13 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
+# include <stdint.h>
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 //# include "../../memory-leaks/include/memory_leaks.h"
 # define P 64
 # define EXT ".cub"
 //# define SECONDS 0.03
-
-typedef enum e_dir
-{
-	N = 0, // dir.x = 0, dir.y = 1
-	S = 1, // dir.x = 0, dir.y = -1
-	W = 2, // dir.x = -1, dir.y = 0
-	E = 3, // dir.x = 1, dir.y = 0
-	NONE = 42
-}	t_dir;
 
 typedef enum e_error
 {
@@ -69,10 +61,18 @@ typedef struct s_paths
 	char	*ea;
 }		t_path;
 
+/**
+ * @brief 
+ * 	N = 0, // dir.x = 0, dir.y = 1
+ *	S = 1, // dir.x = 0, dir.y = -1
+ *	W = 2, // dir.x = -1, dir.y = 0
+ *	E = 3, // dir.x = 1, dir.y = 0
+ */
 typedef struct s_player
 {
 	t_point	pos;
 	t_point	dir;
+	t_point	cam;
 }		t_ply;
 
 typedef struct s_texture
@@ -105,9 +105,9 @@ typedef struct s_data
 	t_img		im;
 	int			*rgb_c;
 	int			*rgb_f;
-	uint_32_t	rgb_c;
-	uint_32_t	rgb_f;
-	t_ply		pos;
+	uint32_t	hex_c;
+	uint32_t	hex_f;
+	t_ply		ply;
 	int			flag;
 }				t_data;
 
@@ -120,6 +120,7 @@ void	ft_parse_file_name(t_data *d, char *file);
 void	ft_parse_file_info(t_data *d);
 void	ft_get_paths_and_colors(t_data *d);
 void	ft_rgb_atoi(t_data *d, char camp, char **color);
+uint32_t ft_rgb_to_hex(int r, int g, int b);
 void	ft_get_map(t_data *d);
 
 /* ************************************************************* */

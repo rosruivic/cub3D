@@ -44,12 +44,14 @@ static void	ft_pull_rgb_colors(t_data *d, char **color)
 		if (d->rgb_c)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_CEILING_COLOR, color);
 		ft_rgb_atoi(d, 'C', rgb);
+		d->hex_c = ft_rgb_to_hex(d->rgb_c[0], d->rgb_c[1], d->rgb_c[2]);
 	}
 	if (ft_str_equal(color[0], "F"))
 	{
 		if (d->rgb_f)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_FLOOR_COLOR, color);
 		ft_rgb_atoi(d, 'F', rgb);
+		d->hex_f = ft_rgb_to_hex(d->rgb_f[0], d->rgb_f[1], d->rgb_f[2]);
 	}
 	rgb = ft_freedom_null(rgb);
 }

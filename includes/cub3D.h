@@ -1,16 +1,18 @@
 
-#ifndef CUB_3D_H
-# define CUB_3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
 # include <math.h>
 # include <stdint.h>
-# include "../libft/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 //# include "../../memory-leaks/include/memory_leaks.h"
 # define P 64
+# define H 640
+# define W 640
 # define EXT ".cub"
 //# define SECONDS 0.03
 
@@ -45,21 +47,21 @@ typedef enum e_error
 	ERROR_MAP_INVALID_TEXTURE_FILE,
 
 	END = 999
-}	t_error;
+}					t_error;
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-}		t_point;
+	int				x;
+	int				y;
+}					t_point;
 
 typedef struct s_paths
 {
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}		t_path;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+}					t_path;
 
 /**
  * @brief 
@@ -70,10 +72,10 @@ typedef struct s_paths
  */
 typedef struct s_player
 {
-	t_point	pos;
-	t_point	dir;
-	t_point	cam;
-}		t_ply;
+	t_point			pos;
+	t_point			dir;
+	t_point			cam;
+}					t_ply;
 
 typedef struct s_texture
 {
@@ -85,97 +87,97 @@ typedef struct s_texture
 
 typedef struct s_image
 {
-	mlx_image_t	*no;
-	mlx_image_t	*so;
-	mlx_image_t	*we;
-	mlx_image_t	*ea;
-}				t_img;
+	mlx_image_t		*no;
+	mlx_image_t		*so;
+	mlx_image_t		*we;
+	mlx_image_t		*ea;
+}					t_img;
 
 typedef struct s_data
 {
-	char		*file;
-	int			fd;
-	char		*gnl;
-	char		*tmp;
-	char		**map;
-	char		**sandbox;
-	mlx_t		*mlx;
-	t_path		path;
-	t_tex		tex;
-	t_img		im;
-	int			*rgb_c;
-	int			*rgb_f;
-	uint32_t	hex_c;
-	uint32_t	hex_f;
-	t_ply		ply;
-	int			flag;
-}				t_data;
+	char			*file;
+	int				fd;
+	char			*gnl;
+	char			*tmp;
+	char			**map;
+	char			**sandbox;
+	mlx_t			*mlx;
+	t_path			path;
+	t_tex			tex;
+	t_img			im;
+	int				*rgb_c;
+	int				*rgb_f;
+	uint32_t		hex_c;
+	uint32_t		hex_f;
+	t_ply			ply;
+	int				flag;
+}					t_data;
 
 /* ************************************************************* */
 /* ********   100 - CHECKING THE FILE NAME        ************** */
 /* ********   & READING THE INFO FROM THE FILE    ************** */
 /* ************************************************************* */
 
-void	ft_parse_file_name(t_data *d, char *file);
-void	ft_parse_file_info(t_data *d);
-void	ft_get_paths_and_colors(t_data *d);
-void	ft_rgb_atoi(t_data *d, char camp, char **color);
-uint32_t ft_rgb_to_hex(int r, int g, int b);
-void	ft_get_map(t_data *d);
+void				ft_parse_file_name(t_data *d, char *file);
+void				ft_parse_file_info(t_data *d);
+void				ft_get_paths_and_colors(t_data *d);
+void				ft_rgb_atoi(t_data *d, char camp, char **color);
+uint32_t			ft_rgb_to_hex(int r, int g, int b);
+void				ft_get_map(t_data *d);
 
 /* ************************************************************* */
 /* ********    200 - CHECKING THE INFO OF THE MAP      ********* */
 /* ************************************************************* */
 
-void	ft_check_valid_map(t_data *d);
-void	ft_check_closed_walls(t_data *d);
-void	ft_build_sandbox(t_data *d);
+void				ft_check_valid_map(t_data *d);
+void				ft_check_closed_walls(t_data *d);
+void				ft_build_sandbox(t_data *d);
 
 /* ************************************************************* */
 /* ************   300 - PAINTING THE GAME WINDOW    ************ */
 /* ************************************************************* */
 
-int32_t	ft_paint_window(t_data *d);
-void	ft_delete_texture(t_data *d);
-void	ft_displ_imgs(t_data *d);
+int32_t				ft_paint_window(t_data *d);
+void				ft_delete_texture(t_data *d);
+void				ft_displ_imgs(t_data *d);
 
 /* ************************************************************* */
 /* *************    400 -	PLAYING THE GAME      ************** */
 /* ************************************************************* */
 
-void	ft_play_game(t_data *d);
+void				ft_play_game(t_data *d);
 
 /* ************************************************************* */
 /* *************    800 -	ERROR MESSAGES        ************** */
 /* ************************************************************* */
 
-void	ft_error_argmts(int error);
-void	ft_error_file(t_data *d, int error);
-void	ft_error_pull_data(t_data *d, int error, char **mtx);
-void	ft_error_pull_map(t_data *d, int error);
-void	ft_error_map_data(t_data *d, int error);
+void				ft_error_argmts(int error);
+void				ft_error_file(t_data *d, int error);
+void				ft_error_pull_data(t_data *d, int error, char **mtx);
+void				ft_error_pull_map(t_data *d, int error);
+void				ft_error_map_data(t_data *d, int error);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */
 /* ************************************************************* */
 
-void	ft_free_structs(t_data *d);
+void				ft_free_structs(t_data *d);
 
-char	*ft_delete_nl(char *str);
-int		ft_is_str_digits(char *str);
-int		ft_matrix_len(char **str);
-int		ft_strcmp(char *s1, char *s2);
-int		ft_str_equal(char *s1, char *s2);
-void	ft_free_null_void_return(char **str);
-char	*ft_strjoin_free(char *s1, char *s2);
-int		ft_detect_forbidden_chars(char *name);
-char	**ft_freedom_null(char **matrix);
-void	ft_print_matrix(char **mtx);
+char				*ft_delete_nl(char *str);
+int					ft_is_str_digits(char *str);
+int					ft_matrix_len(char **str);
+int					ft_strcmp(char *s1, char *s2);
+int					ft_str_equal(char *s1, char *s2);
+void				ft_free_null_void_return(char **str);
+char				*ft_strjoin_free(char *s1, char *s2);
+int					ft_detect_forbidden_chars(char *name);
+char				**ft_freedom_null(char **matrix);
+void				ft_print_matrix(char **mtx);
 
 /* ************************************************************* */
 /* *************           999 - DEBUG            ************** */
 /* ************************************************************* */
 
-void	ft_print_data(t_data *d);
+void				ft_print_data(t_data *d);
 
 #endif

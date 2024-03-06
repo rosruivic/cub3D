@@ -3,8 +3,8 @@ SO textures/mandala-kalachakra.jpg
 WE textures/pergamon.jpg
 EA textures/parc-guell-gaudi.jpg
 
-C 0,99,3
-F 220,5,9
+C 200,200,200
+F 50,50,50
 
  111    1111111111111111111111111
  101    1000000000110000000000001

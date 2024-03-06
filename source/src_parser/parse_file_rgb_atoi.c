@@ -17,11 +17,10 @@ El operador & 0xFF se utiliza para asegurar que solo se utilicen los 8 bits
 menos significativos de cada valor RGB.
  */
 
-uint32_t ft_rgb_to_hex(int r, int g, int b)
+uint32_t	ft_rgb_to_hex(int r, int g, int b)
 {
-    return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
+	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
 }
-
 
 void	ft_rgb_atoi(t_data *d, char camp, char **color)
 {

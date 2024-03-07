@@ -9,5 +9,5 @@ void	ft_free_structs(t_data *d)
 	free(d->rgb_f);
 	free(d->rgb_c);
 	d->map = ft_freedom_null(d->map);
-	d->sandbox = ft_freedom_null(d->sandbox);
+	d->box = ft_freedom_null(d->box);
 }

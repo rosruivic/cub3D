@@ -1,55 +1,55 @@
 #include "cub3D.h"
 
-static void	ft_pull_textures_paths(t_data *d, char **tex)
+static void	ft_pull_textures_paths(t_data *d)
 {
-	if (ft_str_equal(tex[0], "NO"))
+	if (ft_str_equal(d->box[0], "NO"))
 	{
 		if (d->path.no)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE, tex);
-		d->path.no = ft_delete_nl(ft_strdup(tex[1]));
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE);
+		d->path.no = ft_delete_nl(ft_strdup(d->box[1]));
 	}
-	else if (ft_str_equal(tex[0], "SO"))
+	else if (ft_str_equal(d->box[0], "SO"))
 	{
 		if (d->path.so)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE, tex);
-		d->path.so = ft_delete_nl(ft_strdup(tex[1]));
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE);
+		d->path.so = ft_delete_nl(ft_strdup(d->box[1]));
 	}
-	else if (ft_str_equal(tex[0], "WE"))
+	else if (ft_str_equal(d->box[0], "WE"))
 	{
 		if (d->path.we)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE, tex);
-		d->path.we = ft_delete_nl(ft_strdup(tex[1]));
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE);
+		d->path.we = ft_delete_nl(ft_strdup(d->box[1]));
 	}
-	else if (ft_str_equal(tex[0], "EA"))
+	else if (ft_str_equal(d->box[0], "EA"))
 	{
 		if (d->path.ea)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE, tex);
-		d->path.ea = ft_delete_nl(ft_strdup(tex[1]));
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_TEXTURE);
+		d->path.ea = ft_delete_nl(ft_strdup(d->box[1]));
 	}
 }
 
-static void	ft_pull_rgb_colors(t_data *d, char **color)
+static void	ft_pull_rgb_colors(t_data *d)
 {
 	char	**rgb;
 
-	color[1] = ft_delete_nl(color[1]);
-	rgb = ft_split(color[1], ',');
+	d->box[1] = ft_delete_nl(d->box[1]);
+	rgb = ft_split(d->box[1], ',');
 	if (ft_matrix_len(rgb) != 3)
 	{
 		rgb = ft_freedom_null(rgb);
-		ft_error_pull_data(d, ERROR_INVALID_NUMBER_OF_RGB_ITEMS, color);
+		ft_error_pull_data(d, ERROR_INVALID_NUMBER_OF_RGB_ITEMS);
 	}
-	if (ft_str_equal(color[0], "C"))
+	if (ft_str_equal(d->box[0], "C"))
 	{
 		if (d->rgb_c)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_CEILING_COLOR, color);
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_CEILING_COLOR);
 		ft_rgb_atoi(d, 'C', rgb);
 		d->hex_c = ft_rgb_to_hex(d->rgb_c[0], d->rgb_c[1], d->rgb_c[2]);
 	}
-	if (ft_str_equal(color[0], "F"))
+	if (ft_str_equal(d->box[0], "F"))
 	{
 		if (d->rgb_f)
-			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_FLOOR_COLOR, color);
+			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_FLOOR_COLOR);
 		ft_rgb_atoi(d, 'F', rgb);
 		d->hex_f = ft_rgb_to_hex(d->rgb_f[0], d->rgb_f[1], d->rgb_f[2]);
 	}
@@ -58,30 +58,19 @@ static void	ft_pull_rgb_colors(t_data *d, char **color)
 
 static void	ft_what_is_this_gnl(t_data *d, char *gnl)
 {
-	char	**item;
-
 	if (gnl[0] == '\n')
 		return ;
-	item = ft_split(gnl, ' ');
-	if (ft_matrix_len(item) != 2 && !d->flag)
-	{
-		item = ft_freedom_null(item);
+	d->box = ft_split(gnl, ' ');
+	if (ft_matrix_len(d->box) != 2
+		|| (!ft_str_equal(d->box[0], "NO") && !ft_str_equal(d->box[0], "SO")
+		&& !ft_str_equal(d->box[0], "WE") && !ft_str_equal(d->box[0], "EA")
+		&& !ft_str_equal(d->box[0], "F") && !ft_str_equal(d->box[0], "C")))
 		ft_error_file(d, ERROR_FILE_INVALID_ITEM);
-	}
-	if (ft_strlen(item[0]) == 2)
-	{
-		if (!ft_str_equal(item[0], "NO") && !ft_str_equal(item[0], "SO")
-			&& !ft_str_equal(item[0], "WE") && !ft_str_equal(item[0], "EA"))
-			ft_error_file(d, ERROR_FILE_INVALID_ITEM);
-		ft_pull_textures_paths(d, item);
-	}
-	else if (ft_strlen(item[0]) == 1)
-	{
-		if (!ft_str_equal(item[0], "F") && !ft_str_equal(item[0], "C"))
-			ft_error_file(d, ERROR_FILE_INVALID_ITEM);
-		ft_pull_rgb_colors(d, item);
-	}
-	item = ft_freedom_null(item);
+	if (ft_strlen(d->box[0]) == 2)
+		ft_pull_textures_paths(d);
+	else if (ft_strlen(d->box[0]) == 1)
+		ft_pull_rgb_colors(d);
+	d->box = ft_freedom_null(d->box);
 }
 
 static void	ft_determine_flag_status(t_data *d)

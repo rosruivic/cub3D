@@ -32,19 +32,19 @@ void	ft_rgb_atoi(t_data *d, char camp, char **color)
 	{
 		d->rgb_c = ft_calloc(3, sizeof(int));
 		if (!d->rgb_c)
-			ft_error_pull_data(d, ERROR_MALLOC, color);
+			ft_error_pull_data(d, ERROR_MALLOC);
 	}
 	else if (camp == 'F')
 	{
 		d->rgb_f = ft_calloc(3, sizeof(int));
 		if (!d->rgb_f)
-			ft_error_pull_data(d, ERROR_MALLOC, color);
+			ft_error_pull_data(d, ERROR_MALLOC);
 	}
 	while (++i < 3)
 	{
 		if ((ft_strlen(color[i]) > 3 || !ft_is_str_digits(color[i]))
 			|| (ft_atoi(color[i]) > 255 || ft_atoi(color[i]) < 0))
-			ft_error_pull_data(d, ERROR_INVALID_RGB_RANGE, color);
+			ft_error_pull_data(d, ERROR_INVALID_RGB_RANGE);
 		if (camp == 'C')
 			d->rgb_c[i] = ft_atoi(color[i]);
 		else if (camp == 'F')

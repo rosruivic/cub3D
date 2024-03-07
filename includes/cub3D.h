@@ -98,7 +98,7 @@ typedef struct s_data
 	char		*gnl;
 	char		*tmp;
 	char		**map;
-	char		**sandbox;
+	char		**box;
 	mlx_t		*mlx;
 	t_path		path;
 	t_tex		tex;
@@ -151,7 +151,7 @@ void	ft_play_game(t_data *d);
 
 void	ft_error_argmts(int error);
 void	ft_error_file(t_data *d, int error);
-void	ft_error_pull_data(t_data *d, int error, char **mtx);
+void	ft_error_pull_data(t_data *d, int error);
 void	ft_error_pull_map(t_data *d, int error);
 void	ft_error_map_data(t_data *d, int error);
 

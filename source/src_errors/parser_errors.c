@@ -28,7 +28,7 @@ void	ft_error_file(t_data *d, int error)
 	else if (error == ERROR_MAP_FILE_INCOMPLETE_DATA)
 		ft_putstr_fd("Error\n  Map file contains incomplete data\n", 2);
 	else if (error == ERROR_FILE_INVALID_ITEM)
-		ft_putstr_fd("Error\n  No map or not ordered data\n", 2);
+		ft_putstr_fd("Error\n  Invalid item\n", 2);
 	ft_printf("DEBUG: ft_error_file) error = %d\n", error);
 	ft_free_null_void_return(&d->file);
 	ft_free_structs(d);
@@ -42,7 +42,7 @@ void	ft_error_file(t_data *d, int error)
  * @param error 
  * @param mtx 	The path or color returned by ft_split
  */
-void	ft_error_pull_data(t_data *d, int error, char **mtx)
+void	ft_error_pull_data(t_data *d, int error/* , char **mtx */)
 {
 	if (error == ERROR_FILE_DUPLICATE_TEXTURE)
 		ft_putstr_fd("Error\n  Texture direction duplicated\n", 2);
@@ -57,7 +57,6 @@ void	ft_error_pull_data(t_data *d, int error, char **mtx)
 	if (error == ERROR_MALLOC)
 		ft_putstr_fd("Error\n  Allocating memory fail\n", 2);
 	ft_printf("DEBUG: ft_error_pull_data)\n");
-	mtx = ft_freedom_null(mtx);
 	close(d->fd);
 	ft_free_structs(d);
 	exit(42);

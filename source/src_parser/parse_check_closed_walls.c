@@ -2,19 +2,19 @@
 
 static void	ft_cub_flood_fill(int x, int y, t_data *d)
 {
-	d->sandbox[y][x] = '.';
-	if (d->sandbox[y - 1][x] == 'X' || d->sandbox[y + 1][x] == 'X'
-		|| d->sandbox[y][x - 1] == 'X' || d->sandbox[y][x + 1] == 'X'
-		|| d->sandbox[y - 1][x] == ' ' || d->sandbox[y + 1][x] == ' '
-		|| d->sandbox[y][x - 1] == ' ' || d->sandbox[y][x + 1] == ' ')
+	d->box[y][x] = '.';
+	if (d->box[y - 1][x] == 'X' || d->box[y + 1][x] == 'X'
+		|| d->box[y][x - 1] == 'X' || d->box[y][x + 1] == 'X'
+		|| d->box[y - 1][x] == ' ' || d->box[y + 1][x] == ' '
+		|| d->box[y][x - 1] == ' ' || d->box[y][x + 1] == ' ')
 		ft_error_map_data(d, ERROR_MAP_NO_CLOSED_WALLS);
-	if (d->sandbox[y - 1][x] != '1' && d->sandbox[y - 1][x] != '.')
+	if (d->box[y - 1][x] != '1' && d->box[y - 1][x] != '.')
 		ft_cub_flood_fill(x, y - 1, d);
-	if (d->sandbox[y + 1][x] != '1' && d->sandbox[y + 1][x] != '.')
+	if (d->box[y + 1][x] != '1' && d->box[y + 1][x] != '.')
 		ft_cub_flood_fill(x, y + 1, d);
-	if (d->sandbox[y][x - 1] != '1' && d->sandbox[y][x - 1] != '.')
+	if (d->box[y][x - 1] != '1' && d->box[y][x - 1] != '.')
 		ft_cub_flood_fill(x - 1, y, d);
-	if (d->sandbox[y][x + 1] != '1' && d->sandbox[y][x + 1] != '.')
+	if (d->box[y][x + 1] != '1' && d->box[y][x + 1] != '.')
 		ft_cub_flood_fill(x + 1, y, d);
 }
 
@@ -24,12 +24,12 @@ static void	ft_locate_zeroes(t_data *d)
 	int	j;
 
 	i = -1;
-	while (d->sandbox[++i])
+	while (d->box[++i])
 	{
 		j = -1;
-		while (d->sandbox[i][++j])
+		while (d->box[i][++j])
 		{
-			if (d->sandbox[i][j] == '0')
+			if (d->box[i][j] == '0')
 				ft_cub_flood_fill(j, i, d);
 		}
 	}
@@ -53,6 +53,6 @@ void	ft_check_closed_walls(t_data *d)
 	ft_build_sandbox(d);
 	ft_cub_flood_fill(d->ply.pos.x + 1, d->ply.pos.y + 1, d);
 	ft_locate_zeroes(d);
-	ft_print_matrix(d->sandbox);
-	d->sandbox = ft_freedom_null(d->sandbox);
+	ft_print_matrix(d->box);
+	d->box = ft_freedom_null(d->box);
 }

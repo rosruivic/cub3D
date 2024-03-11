@@ -152,17 +152,21 @@ void	ft_graphic(t_data *d)
 
 static void	ft_init_data(t_data *d)
 {
-	d->file = NULL;    // liberar en el parseo (normal y error)
-	d->map = NULL;     // liberar al cerrar la ventana del juego (?)
-	d->gnl = NULL;     // liberar tras leer el archivo del mapa
-	d->tmp = NULL;     // liberar tras su uso temporal
-	d->sandbox = NULL; // liberar tras flood-fill
-	d->path.no = NULL; // liberar tras conv_img_to_texture
-	d->path.so = NULL; // liberar tras conv_img_to_texture
-	d->path.we = NULL; // liberar tras conv_img_to_texture
-	d->path.ea = NULL; // liberar tras conv_img_to_texture
-	d->rgb_c = NULL;   // liberar tras pintar el cielo
-	d->rgb_f = NULL;   // liberar tras pintar el suelo
+	d->file = NULL;		// liberar en el parseo (normal y error)
+	d->map = NULL;		// liberar al cerrar la ventana del juego (?)
+	d->gnl = NULL;		// liberar tras leer el archivo del mapa
+	d->tmp = NULL;		// liberar tras su uso temporal
+	d->box = NULL;		// liberar tras flood-fill
+	d->path.no = NULL; 	// liberar tras conv_img_to_texture
+	d->path.so = NULL; 	// liberar tras conv_img_to_texture
+	d->path.we = NULL; 	// liberar tras conv_img_to_texture
+	d->path.ea = NULL; 	// liberar tras conv_img_to_texture
+
+	d->rgb_c = NULL;	// liberar tras pintar el cielo
+	d->rgb_f = NULL;	// liberar tras pintar el suelo
+	d->hex_c = -42;
+	d->hex_f = -42;
+	
 	d->ply.pos.x = -42;
 	d->ply.pos.y = -42;
 	d->ply.dir.x = -42;
@@ -194,8 +198,8 @@ void	ft_print_data(t_data *d)
 	ft_printf("FICHERO RGB suelo:       %d,%d,%d\n", d->rgb_f[0], d->rgb_f[1],
 			d->rgb_f[2]);
 	printf("FICHERO RGB hex suelo:   %06X\n", d->hex_f);
-	ft_printf("\nFICHERO dir player:   (%d,%d)\n", d->ply.pos.x, d->ply.pos.y);
 	ft_printf("\nFICHERO coor plyer:   (%d,%d)\n", d->ply.pos.x, d->ply.pos.y);
+	ft_printf("\nFICHERO dir player:   (%d,%d)\n", d->ply.dir.x, d->ply.dir.y);
 }
 
 static void	ft_parser(t_data *d, char *file)

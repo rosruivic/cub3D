@@ -152,11 +152,11 @@ void				ft_play_game(t_data *d);
 /* *************    800 -	ERROR MESSAGES        ************** */
 /* ************************************************************* */
 
-void				ft_error_argmts(int error);
-void				ft_error_file(t_data *d, int error);
-void				ft_error_pull_data(t_data *d, int error, char **mtx);
-void				ft_error_pull_map(t_data *d, int error);
-void				ft_error_map_data(t_data *d, int error);
+void	ft_error_argmts(int error);
+void	ft_error_file(t_data *d, int error);
+void	ft_error_pull_data(t_data *d, int error);
+void	ft_error_pull_map(t_data *d, int error);
+void	ft_error_map_data(t_data *d, int error);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */

@@ -100,7 +100,7 @@ typedef struct s_data
 	char			*gnl;
 	char			*tmp;
 	char			**map;
-	char			**sandbox;
+	char			**box;
 	mlx_t			*mlx;
 	t_path			path;
 	t_tex			tex;

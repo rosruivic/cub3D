@@ -11,8 +11,8 @@
 # include <unistd.h>
 //# include "../../memory-leaks/include/memory_leaks.h"
 # define P 64
-# define H 640
-# define W 640
+# define W 1024
+# define H 1024
 # define EXT ".cub"
 //# define SECONDS 0.03
 
@@ -110,6 +110,7 @@ typedef struct s_data
 	uint32_t		hex_c;
 	uint32_t		hex_f;
 	t_ply			ply;
+	mlx_image_t		*background;
 	int				flag;
 }					t_data;
 

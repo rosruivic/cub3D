@@ -61,23 +61,23 @@ static void	ft_build_sandbox_last_line(t_data *d, int i)
 	if (!d->box[i])
 		ft_error_map_data(d, ERROR_MALLOC);
 	j = -1;
-	while (++j < ft_longer_row(d) + 2)
+	d->dim_map.x = ft_longer_row(d);
+	while (++j < d->dim_map.x + 2)
 		d->box[i][j] = 'X';
 	d->box[i][j] = '\0';
 }
 
 void	ft_build_sandbox(t_data *d)
 {
-	int	rows;
 	int	i;
 
-	rows = ft_matrix_len(d->map) + 2 + 1;
-	d->box = calloc((rows + 1), sizeof(char *));
+	d->dim_map.y = ft_matrix_len(d->map) + 2 + 1;
+	d->box = calloc((d->dim_map.y + 1), sizeof(char *));
 	if (!d->box)
 		ft_error_map_data(d, ERROR_MALLOC);
-	d->box[rows] = NULL;
+	d->box[d->dim_map.y] = NULL;
 	ft_build_sandbox_first_line(d);
-	i = ft_build_sandbox_inter_lines(d, rows);
+	i = ft_build_sandbox_inter_lines(d, d->dim_map.y);
 	ft_build_sandbox_last_line(d, i);
 	ft_printf("%s\n", d->box[i]);
 	ft_printf("\n");

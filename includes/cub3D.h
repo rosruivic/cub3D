@@ -13,6 +13,7 @@
 # define P 64
 # define W 1024
 # define H 1024
+# define TILE 8
 # define EXT ".cub"
 //# define SECONDS 0.03
 
@@ -100,6 +101,7 @@ typedef struct s_data
 	char			*gnl;
 	char			*tmp;
 	char			**map;
+	t_point			dim_map;
 	char			**box;
 	mlx_t			*mlx;
 	t_path			path;

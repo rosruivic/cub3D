@@ -13,7 +13,7 @@
 # define P 64
 # define W 1024
 # define H 1024
-# define TILE 8
+# define TILE 10
 # define EXT ".cub"
 //# define SECONDS 0.03
 
@@ -84,6 +84,9 @@ typedef struct s_texture
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*mini_p;
+	mlx_texture_t	*mini_f;
+	mlx_texture_t	*mini_w;
 }					t_tex;
 
 typedef struct s_image
@@ -92,6 +95,10 @@ typedef struct s_image
 	mlx_image_t		*so;
 	mlx_image_t		*we;
 	mlx_image_t		*ea;
+	mlx_image_t		*mini_p;
+	mlx_image_t		*mini_f;
+	mlx_image_t		*mini_w;
+	mlx_image_t		*background;
 }					t_img;
 
 typedef struct s_data
@@ -112,7 +119,6 @@ typedef struct s_data
 	uint32_t		hex_c;
 	uint32_t		hex_f;
 	t_ply			ply;
-	mlx_image_t		*background;
 	int				flag;
 }					t_data;
 
@@ -140,9 +146,12 @@ void				ft_build_sandbox(t_data *d);
 /* ************   300 - PAINTING THE GAME WINDOW    ************ */
 /* ************************************************************* */
 
-int32_t				ft_paint_window(t_data *d);
-void				ft_delete_texture(t_data *d);
-void				ft_displ_imgs(t_data *d);
+// int32_t				ft_paint_window(t_data *d);
+// void				ft_delete_texture(t_data *d);
+//void				ft_displ_imgs(t_data *d);
+void	ft_graphic(t_data *d);
+void	ft_minimap(t_data *d);
+void	ft_raycasting(t_data *d);
 
 /* ************************************************************* */
 /* *************    400 -	PLAYING THE GAME      ************** */

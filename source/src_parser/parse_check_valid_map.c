@@ -4,21 +4,41 @@ static void	ft_fill_player_dir(t_data *d, int x, int y)
 {
 	d->ply.dir.x = x;
 	d->ply.dir.y = y;
+	if (d->ply.dir.x == -1 && d->ply.dir.y == 0)
+	{
+		d->ply.cam.x = 0;
+		d->ply.cam.y = 0.66;
+	}
+	if (d->ply.dir.x == 1 && d->ply.dir.y == 0)
+	{
+		d->ply.cam.x = 0;
+		d->ply.cam.y = -0.66;
+	}
+	if (d->ply.dir.y == -1 && d->ply.dir.x == 0)
+	{
+		d->ply.cam.x = -0.66;
+		d->ply.cam.y = 0;
+	}
+	if (d->ply.dir.y == 1 && d->ply.dir.x == 0)
+	{
+		d->ply.cam.x = 0.66;
+		d->ply.cam.y = 0;
+	}
 }
 
 static void	ft_check_player(t_data *d, int i, int j)
 {
-	if (d->map[i][j] == 'N' || d->map[i][j] == 'S'
-		|| d->map[i][j] == 'W' || d->map[i][j] == 'E')
+	if (d->map[i][j] == 'N' || d->map[i][j] == 'S' || d->map[i][j] == 'W'
+		|| d->map[i][j] == 'E')
 	{
 		if (d->ply.pos.x < 0)
 		{
-			d->ply.pos.x = j;
-			d->ply.pos.y = i;
+			d->ply.pos.x = j + 0.5;
+			d->ply.pos.y = i + 0.5;
 			if (d->map[i][j] == 'N')
-				ft_fill_player_dir(d, 0, 1);
-			else if (d->map[i][j] == 'S')
 				ft_fill_player_dir(d, 0, -1);
+			else if (d->map[i][j] == 'S')
+				ft_fill_player_dir(d, 0, 1);
 			else if (d->map[i][j] == 'W')
 				ft_fill_player_dir(d, -1, 0);
 			else if (d->map[i][j] == 'E')

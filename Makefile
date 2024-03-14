@@ -27,6 +27,7 @@ SRC		=	cub3D.c \
 			graphic.c \
 			graphic_minimap.c \
 			graphic_raycasting.c \
+			graphic_calc_vector.c \
 			cub_utils.c \
 			msh_utils.c \
 			msh_utils_free_null.c \

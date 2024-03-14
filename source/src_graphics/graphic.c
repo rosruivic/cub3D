@@ -22,12 +22,22 @@ static void	ft_background(t_data *d)
 	}
 }
 
+void	ft_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_data	*d;
+
+	d = param;
+	(void)d;
+	(void)keydata;
+}
+
 void	ft_graphic(t_data *d)
 {
 	d->mlx = mlx_init(H, W, "Cubilete", false);
 	ft_background(d);
 	ft_minimap(d);
-	// ft_raycasting(d);
+	ft_raycasting(d);
+	mlx_key_hook(d->mlx, &ft_keyhook, d);
 	mlx_loop(d->mlx);
 	mlx_terminate(d->mlx);
 }

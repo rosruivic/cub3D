@@ -52,8 +52,8 @@ typedef enum e_error
 
 typedef struct s_point
 {
-	int				x;
-	int				y;
+	double				x;
+	double				y;
 }					t_point;
 
 typedef struct s_paths
@@ -99,6 +99,7 @@ typedef struct s_image
 	mlx_image_t		*mini_f;
 	mlx_image_t		*mini_w;
 	mlx_image_t		*background;
+	mlx_image_t		*minimap;
 }					t_img;
 
 typedef struct s_data
@@ -152,6 +153,7 @@ void				ft_build_sandbox(t_data *d);
 void	ft_graphic(t_data *d);
 void	ft_minimap(t_data *d);
 void	ft_raycasting(t_data *d);
+void	ft_calc_vector(t_data *d);
 
 /* ************************************************************* */
 /* *************    400 -	PLAYING THE GAME      ************** */

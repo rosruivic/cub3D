@@ -75,7 +75,7 @@ void	ft_build_sandbox(t_data *d)
 	d->box = calloc((d->dim_map.y + 1), sizeof(char *));
 	if (!d->box)
 		ft_error_map_data(d, ERROR_MALLOC);
-	d->box[d->dim_map.y] = NULL;
+	d->box[(int)d->dim_map.y] = NULL;
 	ft_build_sandbox_first_line(d);
 	i = ft_build_sandbox_inter_lines(d, d->dim_map.y);
 	ft_build_sandbox_last_line(d, i);

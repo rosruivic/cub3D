@@ -14,6 +14,8 @@
 # define W 1024
 # define H 1024
 # define TILE 10
+# define MOVE_SPEED 0.1
+# define ROTATE_SPEED 0.1
 # define EXT ".cub"
 //# define SECONDS 0.03
 

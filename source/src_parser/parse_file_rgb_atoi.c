@@ -19,7 +19,7 @@ menos significativos de cada valor RGB.
 
 uint32_t	ft_rgb_to_hex(int r, int g, int b)
 {
-	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
+	return (((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | (0xFF));
 }
 
 void	ft_rgb_atoi(t_data *d, char camp, char **color)

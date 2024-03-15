@@ -7,21 +7,21 @@ static void	ft_fill_player_dir(t_data *d, int x, int y)
 	if (d->ply.dir.x == -1 && d->ply.dir.y == 0)
 	{
 		d->ply.cam.x = 0;
-		d->ply.cam.y = 0.66;
+		d->ply.cam.y = -0.66;
 	}
 	if (d->ply.dir.x == 1 && d->ply.dir.y == 0)
 	{
 		d->ply.cam.x = 0;
-		d->ply.cam.y = -0.66;
+		d->ply.cam.y = 0.66;
 	}
 	if (d->ply.dir.y == -1 && d->ply.dir.x == 0)
 	{
-		d->ply.cam.x = -0.66;
+		d->ply.cam.x = 0.66;
 		d->ply.cam.y = 0;
 	}
 	if (d->ply.dir.y == 1 && d->ply.dir.x == 0)
 	{
-		d->ply.cam.x = 0.66;
+		d->ply.cam.x = -0.66;
 		d->ply.cam.y = 0;
 	}
 }

@@ -54,8 +54,8 @@ typedef enum e_error
 
 typedef struct s_point
 {
-	double				x;
-	double				y;
+	double			x;
+	double			y;
 }					t_point;
 
 typedef struct s_paths
@@ -89,6 +89,7 @@ typedef struct s_texture
 	mlx_texture_t	*mini_p;
 	mlx_texture_t	*mini_f;
 	mlx_texture_t	*mini_w;
+	mlx_texture_t	*mini_r;
 }					t_tex;
 
 typedef struct s_image
@@ -100,6 +101,7 @@ typedef struct s_image
 	mlx_image_t		*mini_p;
 	mlx_image_t		*mini_f;
 	mlx_image_t		*mini_w;
+	mlx_image_t		*mini_r;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
 }					t_img;
@@ -152,10 +154,11 @@ void				ft_build_sandbox(t_data *d);
 // int32_t				ft_paint_window(t_data *d);
 // void				ft_delete_texture(t_data *d);
 //void				ft_displ_imgs(t_data *d);
-void	ft_graphic(t_data *d);
-void	ft_minimap(t_data *d);
-void	ft_raycasting(t_data *d);
-void	ft_calc_vector(t_data *d);
+void				ft_graphic(t_data *d);
+void				ft_minimap(t_data *d);
+void				ft_move_minimap(t_data *d);
+void				ft_raycasting(t_data *d);
+void				ft_calc_vector(t_data *d);
 
 /* ************************************************************* */
 /* *************    400 -	PLAYING THE GAME      ************** */
@@ -167,11 +170,11 @@ void				ft_play_game(t_data *d);
 /* *************    800 -	ERROR MESSAGES        ************** */
 /* ************************************************************* */
 
-void	ft_error_argmts(int error);
-void	ft_error_file(t_data *d, int error);
-void	ft_error_pull_data(t_data *d, int error);
-void	ft_error_pull_map(t_data *d, int error);
-void	ft_error_map_data(t_data *d, int error);
+void				ft_error_argmts(int error);
+void				ft_error_file(t_data *d, int error);
+void				ft_error_pull_data(t_data *d, int error);
+void				ft_error_pull_map(t_data *d, int error);
+void				ft_error_map_data(t_data *d, int error);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */

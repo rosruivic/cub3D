@@ -44,64 +44,100 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 	t_data	*d;
 	double	old_dir_x;
 	double	old_plane_x;
+	double	move_speed;
+	double	rot_speed;
 
 	d = param;
-	(void)d;
-	(void)keydata;
+	move_speed = 5.0 * d->mlx->delta_time;
+	rot_speed = 3.0 * d->mlx->delta_time;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(d->mlx);
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
 	{
-		d->ply.pos.y += MOVE_SPEED * d->ply.dir.y;
-		d->ply.pos.x += MOVE_SPEED * d->ply.dir.x;
-		ft_background(d);
-		ft_raycasting(d);
+		if (d->map[(int)(d->ply.pos.y + move_speed
+				* d->ply.dir.y)][(int)(d->ply.pos.x + move_speed
+				* d->ply.dir.x)] != '1')
+		{
+			d->ply.pos.y += move_speed * d->ply.dir.y;
+			d->ply.pos.x += move_speed * d->ply.dir.x;
+			ft_background(d);
+			ft_raycasting(d);
+			ft_move_minimap(d);
+		}
 		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
 	}
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
 	{
-		d->ply.pos.y -= MOVE_SPEED * d->ply.dir.y;
-		d->ply.pos.x -= MOVE_SPEED * d->ply.dir.x;
-		ft_background(d);
-		ft_raycasting(d);
+		if (d->map[(int)(d->ply.pos.y - move_speed
+				* d->ply.dir.y)][(int)(d->ply.pos.x - move_speed
+				* d->ply.dir.x)] != '1')
+		{
+			d->ply.pos.y -= move_speed * d->ply.dir.y;
+			d->ply.pos.x -= move_speed * d->ply.dir.x;
+			ft_background(d);
+			ft_raycasting(d);
+			ft_move_minimap(d);
+		}
 		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_REPEAT)
 	{
-		d->ply.pos.y += MOVE_SPEED * d->ply.cam.y;
-		d->ply.pos.x += MOVE_SPEED * d->ply.cam.x;
-		ft_background(d);
-		ft_raycasting(d);
+		if (d->map[(int)(d->ply.pos.y + move_speed
+				* d->ply.cam.y)][(int)(d->ply.pos.x + move_speed
+				* d->ply.cam.x)] != '1')
+		{
+			d->ply.pos.y += move_speed * d->ply.cam.y;
+			d->ply.pos.x += move_speed * d->ply.cam.x;
+			ft_background(d);
+			ft_raycasting(d);
+			ft_move_minimap(d);
+		}
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_REPEAT)
 	{
-		d->ply.pos.y -= MOVE_SPEED * d->ply.cam.y;
-		d->ply.pos.x -= MOVE_SPEED * d->ply.cam.x;
-		ft_background(d);
-		ft_raycasting(d);
+		if (d->map[(int)(d->ply.pos.y - move_speed
+				* d->ply.cam.y)][(int)(d->ply.pos.x - move_speed
+				* d->ply.cam.x)] != '1')
+		{
+			d->ply.pos.y -= move_speed * d->ply.cam.y;
+			d->ply.pos.x -= move_speed * d->ply.cam.x;
+			ft_background(d);
+			ft_raycasting(d);
+			ft_move_minimap(d);
+		}
 	}
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT)
 	{
 		old_dir_x = d->ply.dir.x;
-		d->ply.dir.x = d->ply.dir.x * cos(ROTATE_SPEED) - d->ply.dir.y * sin(ROTATE_SPEED);
-		d->ply.dir.y = old_dir_x * sin(ROTATE_SPEED) + d->ply.dir.y * cos(ROTATE_SPEED);
+		d->ply.dir.x = d->ply.dir.x * cos(rot_speed) - d->ply.dir.y
+			* sin(rot_speed);
+		d->ply.dir.y = old_dir_x * sin(rot_speed) + d->ply.dir.y
+			* cos(rot_speed);
 		old_plane_x = d->ply.cam.x;
-		d->ply.cam.x = d->ply.cam.x * cos(ROTATE_SPEED) - d->ply.cam.y * sin(ROTATE_SPEED);
-		d->ply.cam.y = old_plane_x * sin(ROTATE_SPEED) + d->ply.cam.y * cos(ROTATE_SPEED);
+		d->ply.cam.x = d->ply.cam.x * cos(rot_speed) - d->ply.cam.y
+			* sin(rot_speed);
+		d->ply.cam.y = old_plane_x * sin(rot_speed) + d->ply.cam.y
+			* cos(rot_speed);
 		ft_background(d);
 		ft_raycasting(d);
+		ft_move_minimap(d);
 		printf("Izquierda\n");
 	}
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_REPEAT)
 	{
 		old_dir_x = d->ply.dir.x;
-		d->ply.dir.x = d->ply.dir.x * cos(-ROTATE_SPEED) - d->ply.dir.y * sin(-ROTATE_SPEED);
-		d->ply.dir.y = old_dir_x * sin(-ROTATE_SPEED) + d->ply.dir.y * cos(-ROTATE_SPEED);
+		d->ply.dir.x = d->ply.dir.x * cos(-rot_speed) - d->ply.dir.y
+			* sin(-rot_speed);
+		d->ply.dir.y = old_dir_x * sin(-rot_speed) + d->ply.dir.y
+			* cos(-rot_speed);
 		old_plane_x = d->ply.cam.x;
-		d->ply.cam.x = d->ply.cam.x * cos(-ROTATE_SPEED) - d->ply.cam.y * sin(-ROTATE_SPEED);
-		d->ply.cam.y = old_plane_x * sin(-ROTATE_SPEED) + d->ply.cam.y * cos(-ROTATE_SPEED);
+		d->ply.cam.x = d->ply.cam.x * cos(-rot_speed) - d->ply.cam.y
+			* sin(-rot_speed);
+		d->ply.cam.y = old_plane_x * sin(-rot_speed) + d->ply.cam.y
+			* cos(-rot_speed);
 		ft_background(d);
 		ft_raycasting(d);
+		ft_move_minimap(d);
 		printf("Derecha\n");
 	}
 }

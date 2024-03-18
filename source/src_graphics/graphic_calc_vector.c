@@ -70,10 +70,13 @@ void	ft_calc_vector(t_data *d)
 				map_y += step_y;
 				wall_side = 1;
 			}
-			if (d->map[map_y][map_x] != '0')
+			if (d->map[map_y][map_x] != '0' && d->map[map_y][map_x] != 'W'
+				&& d->map[map_y][map_x] != 'E' && d->map[map_y][map_x] != 'N'
+				&& d->map[map_y][map_x] != 'S')
 				hit = 1;
-			mlx_image_to_window(d->mlx, d->im.mini_p, map_x * TILE, map_y
-				* TILE);
+			else
+				mlx_image_to_window(d->mlx, d->im.mini_r, map_x * TILE, map_y
+						* TILE);
 		}
 	}
 }

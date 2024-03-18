@@ -95,7 +95,9 @@ void	ft_raycasting(t_data *d)
 				map_y += step_y;
 				wall_side = 1;
 			}
-			if (d->map[map_y][map_x] != '0')
+			if (d->map[map_y][map_x] != '0' && d->map[map_y][map_x] != 'W'
+				&& d->map[map_y][map_x] != 'E' && d->map[map_y][map_x] != 'N'
+				&& d->map[map_y][map_x] != 'S')
 				hit = 1;
 		}
 		if (wall_side == 0)

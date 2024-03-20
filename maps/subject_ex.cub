@@ -1,7 +1,7 @@
-NO textures/arte-egipcio.jpg
-SO textures/mandala-kalachakra.jpg
-WE textures/pergamon.jpg
-EA textures/parc-guell-gaudi.jpg
+NO textures/gryffindor.png
+SO textures/slytherin.png
+WE textures/ravenclaw.png
+EA textures/hufflepuff.png
 
 C 145,23,33
 F 0,255,55

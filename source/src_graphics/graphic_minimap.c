@@ -6,6 +6,10 @@ static void	ft_load_images(t_data *d)
 	d->tex.mini_f = mlx_load_png("./textures/floor.png");
 	d->tex.mini_w = mlx_load_png("./textures/wall.png");
 	d->tex.mini_r = mlx_load_png("./textures/ray.png");
+	d->tex.no = mlx_load_png(d->path.no);
+	d->tex.so = mlx_load_png(d->path.so);
+	d->tex.we = mlx_load_png(d->path.we);
+	d->tex.ea = mlx_load_png(d->path.ea);
 	d->im.mini_p = mlx_texture_to_image(d->mlx, d->tex.mini_p);
 	d->im.mini_f = mlx_texture_to_image(d->mlx, d->tex.mini_f);
 	d->im.mini_w = mlx_texture_to_image(d->mlx, d->tex.mini_w);
@@ -24,7 +28,6 @@ void	ft_move_minimap(t_data *d)
 	printf("HOla\n");
 	d->im.mini_r = mlx_texture_to_image(d->mlx, d->tex.mini_r);
 	ft_calc_vector(d);
-	// (void)d;
 }
 
 void	ft_minimap(t_data *d)

@@ -36,6 +36,8 @@ void	ft_raycasting(t_data *d)
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	double	wall_x;
+	int		tex_x;
 
 	wall_side = 0;
 	step_x = 0;
@@ -111,6 +113,16 @@ void	ft_raycasting(t_data *d)
 		draw_end = line_height / 2 + H / 2;
 		if (draw_end >= H)
 			draw_end = H - 1;
+		if (wall_side == 0)
+			wall_x = d->ply.pos.y + perp_wall_dist * ray_dir_y;
+		else
+			wall_x = d->ply.pos.x + perp_wall_dist * ray_dir_x;
+		wall_x -= floor(wall_x);
+		tex_x = (int)(wall_x * (double)d->tex.no->width);
+		if (wall_side == 0 && ray_dir_x > 0)
+			tex_x = d->tex.no->width - tex_x - 1;
+		if (wall_side == 1 && ray_dir_x < 0)
+			tex_x = d->tex.no->width - tex_x - 1;
 		ft_draw(d, i, draw_start, draw_end);
 	}
 }

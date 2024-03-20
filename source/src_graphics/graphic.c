@@ -52,7 +52,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 	rot_speed = 3.0 * d->mlx->delta_time;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(d->mlx);
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		if (d->map[(int)(d->ply.pos.y + move_speed
 				* d->ply.dir.y)][(int)(d->ply.pos.x + move_speed
@@ -66,7 +67,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 		}
 		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
 	}
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		if (d->map[(int)(d->ply.pos.y - move_speed
 				* d->ply.dir.y)][(int)(d->ply.pos.x - move_speed
@@ -80,7 +82,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 		}
 		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
 	}
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		if (d->map[(int)(d->ply.pos.y + move_speed
 				* d->ply.cam.y)][(int)(d->ply.pos.x + move_speed
@@ -93,7 +96,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 			ft_move_minimap(d);
 		}
 	}
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		if (d->map[(int)(d->ply.pos.y - move_speed
 				* d->ply.cam.y)][(int)(d->ply.pos.x - move_speed
@@ -106,7 +110,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 			ft_move_minimap(d);
 		}
 	}
-	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		old_dir_x = d->ply.dir.x;
 		d->ply.dir.x = d->ply.dir.x * cos(rot_speed) - d->ply.dir.y
@@ -123,7 +128,8 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 		ft_move_minimap(d);
 		printf("Izquierda\n");
 	}
-	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_REPEAT)
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
+			|| keydata.action == MLX_PRESS))
 	{
 		old_dir_x = d->ply.dir.x;
 		d->ply.dir.x = d->ply.dir.x * cos(-rot_speed) - d->ply.dir.y

@@ -17,7 +17,8 @@
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.1
 # define EXT ".cub"
-# define TEXTW 256
+# define TEXW 256
+# define TEXH 256
 //# define SECONDS 0.03
 
 typedef enum e_error

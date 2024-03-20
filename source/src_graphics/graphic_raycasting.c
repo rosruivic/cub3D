@@ -1,15 +1,14 @@
 #include "../includes/cub3D.h"
 
-static void	ft_draw(t_data *d, int x, int draw_start, int draw_end)
+uint32_t	ft_get_uin32(uint8_t *conv, int n)
 {
-	int	i;
+	uint32_t	u;
 
-	i = draw_start;
-	while (i < draw_end)
-	{
-		mlx_put_pixel(d->im.background, x, i, 0xFF0000FF);
-		i++;
-	}
+	u = conv[n] << 24;
+	u += conv[n + 1] << 16;
+	u += conv[n + 2] << 8;
+	u += conv[n + 3];
+	return (u);
 }
 
 void	ft_raycasting(t_data *d)
@@ -38,6 +37,10 @@ void	ft_raycasting(t_data *d)
 	int		draw_end;
 	double	wall_x;
 	int		tex_x;
+	double	step;
+	double	tex_pos;
+	int		j;
+	int		color;
 
 	wall_side = 0;
 	step_x = 0;
@@ -120,9 +123,29 @@ void	ft_raycasting(t_data *d)
 		wall_x -= floor(wall_x);
 		tex_x = (int)(wall_x * (double)d->tex.no->width);
 		if (wall_side == 0 && ray_dir_x > 0)
-			tex_x = d->tex.no->width - tex_x - 1;
+			tex_x = TEXW - tex_x - 1;
 		if (wall_side == 1 && ray_dir_x < 0)
-			tex_x = d->tex.no->width - tex_x - 1;
-		ft_draw(d, i, draw_start, draw_end);
+			tex_x = TEXW - tex_x - 1;
+		step = 1.0 * TEXH / line_height;
+		tex_pos = (draw_start - H / 2 + line_height / 2) * step;
+		j = draw_start;
+		while (j < draw_end)
+		{
+			tex_pos += step;
+			if (wall_side == 0 && map_x < (int)d->ply.pos.x)
+				color = ft_get_uin32(d->tex.we->pixels, d->tex.we->width
+						* (int)tex_pos * 4 + (int)tex_x * 4);
+			else if (wall_side == 0 && map_x > (int)d->ply.pos.x)
+				color = ft_get_uin32(d->tex.ea->pixels, d->tex.ea->width
+						* (int)tex_pos * 4 + (int)tex_x * 4);
+			else if (wall_side == 1 && map_y < (int)d->ply.pos.y)
+				color = ft_get_uin32(d->tex.no->pixels, d->tex.no->width
+						* (int)tex_pos * 4 + (int)tex_x * 4);
+			else if (wall_side == 1 && map_y > (int)d->ply.pos.y)
+				color = ft_get_uin32(d->tex.so->pixels, d->tex.so->width
+						* (int)tex_pos * 4 + (int)tex_x * 4);
+			mlx_put_pixel(d->im.background, i, j, color);
+			j++;
+		}
 	}
 }

@@ -42,7 +42,7 @@ void	ft_error_file(t_data *d, int error)
  * @param error 
  * @param mtx 	The path or color returned by ft_split
  */
-void	ft_error_pull_data(t_data *d, int error/* , char **mtx */)
+void	ft_error_pull_data(t_data *d, int error)
 {
 	if (error == ERROR_FILE_DUPLICATE_TEXTURE)
 		ft_putstr_fd("Error\n  Texture direction duplicated\n", 2);

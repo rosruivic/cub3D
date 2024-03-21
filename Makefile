@@ -24,15 +24,17 @@ SRC		=	cub3D.c \
 			parse_build_sandbox.c \
 			parse_file_free_structs.c \
 			parser_errors.c \
+			graphic_errors.c \
 			graphic.c \
 			graphic_minimap.c \
 			graphic_raycasting.c \
 			graphic_calc_vector.c \
+			graphic_movement.c \
+			graphic_init_raycasting.c \
 			cub_utils.c \
 			msh_utils.c \
 			msh_utils_free_null.c \
 			msh_utils_str_cmp_equal.c \
-			prueba.c \
 
 OBJS	= $(SRC:.c=.o)
 #OBJS	= $(notdir $(SRC:.c=.o))

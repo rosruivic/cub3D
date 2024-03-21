@@ -11,8 +11,8 @@
 # include <unistd.h>
 //# include "../../memory-leaks/include/memory_leaks.h"
 # define P 64
-# define W 1024
 # define H 1024
+# define W 1024
 # define TILE 10
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.1
@@ -54,12 +54,17 @@ typedef enum e_error
 	END = 999
 }					t_error;
 
-typedef struct s_point
+typedef struct s_dpoint
 {
 	double			x;
 	double			y;
-}					t_point;
+}					t_dpoint;
 
+typedef struct s_ipoint
+{
+	int				x;
+	int				y;
+}					t_ipoint;
 typedef struct s_paths
 {
 	char			*no;
@@ -77,9 +82,9 @@ typedef struct s_paths
  */
 typedef struct s_player
 {
-	t_point			pos;
-	t_point			dir;
-	t_point			cam;
+	t_dpoint		pos;
+	t_dpoint		dir;
+	t_dpoint		cam;
 }					t_ply;
 
 typedef struct s_texture
@@ -108,6 +113,26 @@ typedef struct s_image
 	mlx_image_t		*minimap;
 }					t_img;
 
+typedef struct s_graphic
+{
+	t_dpoint		ray_dir;
+	t_dpoint		delta;
+	t_dpoint		side;
+	t_dpoint		step_move;
+	t_ipoint		map;
+	t_ipoint		draw;
+	int				hit;
+	int				color;
+	int				wall_side;
+	int				line_height;
+	double			cam_x;
+	double			perp_wall_dist;
+	double			wall_x;
+	int				tex_x;
+	double			step;
+	double			tex_pos;
+}					t_graphic;
+
 typedef struct s_data
 {
 	char			*file;
@@ -115,18 +140,23 @@ typedef struct s_data
 	char			*gnl;
 	char			*tmp;
 	char			**map;
-	t_point			dim_map;
+	t_dpoint		dim_map;
 	char			**box;
 	mlx_t			*mlx;
 	t_path			path;
 	t_tex			tex;
 	t_img			im;
+	t_graphic		g;
 	int				*rgb_c;
 	int				*rgb_f;
 	uint32_t		hex_c;
 	uint32_t		hex_f;
 	t_ply			ply;
 	int				flag;
+	double			move_speed;
+	double			rot_speed;
+	double			old_dir;
+	double			old_plane;
 }					t_data;
 
 /* ************************************************************* */
@@ -160,13 +190,23 @@ void				ft_graphic(t_data *d);
 void				ft_minimap(t_data *d);
 void				ft_move_minimap(t_data *d);
 void				ft_raycasting(t_data *d);
+void				ft_init_raycasting(t_data *d);
+void				ft_init_boucle_raycasting(t_data *d, int i);
+void				ft_second_init_boucle_raycasting(t_data *d);
+void				ft_hit_wall(t_data *d);
+void				ft_principal_boucle(t_data *d);
 void				ft_calc_vector(t_data *d);
+void				ft_background(t_data *d);
 
 /* ************************************************************* */
 /* *************    400 -	PLAYING THE GAME      ************** */
 /* ************************************************************* */
 
 void				ft_play_game(t_data *d);
+void				ft_w(t_data *d, mlx_key_data_t keydata);
+void				ft_s(t_data *d, mlx_key_data_t keydata);
+void				ft_d(t_data *d, mlx_key_data_t keydata);
+void				ft_a(t_data *d, mlx_key_data_t keydata);
 
 /* ************************************************************* */
 /* *************    800 -	ERROR MESSAGES        ************** */

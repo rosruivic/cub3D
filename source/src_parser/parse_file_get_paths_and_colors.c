@@ -45,7 +45,6 @@ static void	ft_pull_rgb_colors(t_data *d)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_CEILING_COLOR);
 		ft_rgb_atoi(d, 'C', rgb);
 		d->hex_c = ft_rgb_to_hex(d->rgb_c[0], d->rgb_c[1], d->rgb_c[2]);
-		printf("hex_c:%x\n", d->hex_c);
 	}
 	if (ft_str_equal(d->box[0], "F"))
 	{
@@ -53,7 +52,6 @@ static void	ft_pull_rgb_colors(t_data *d)
 			ft_error_pull_data(d, ERROR_FILE_DUPLICATE_FLOOR_COLOR);
 		ft_rgb_atoi(d, 'F', rgb);
 		d->hex_f = ft_rgb_to_hex(d->rgb_f[0], d->rgb_f[1], d->rgb_f[2]);
-		printf("hex_f:%x\n", d->hex_f);
 	}
 	rgb = ft_freedom_null(rgb);
 }

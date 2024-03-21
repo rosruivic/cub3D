@@ -11,141 +11,147 @@ uint32_t	ft_get_uin32(uint8_t *conv, int n)
 	return (u);
 }
 
+// void	ft_init_raycasting(t_data *d)
+// {
+// 	d->g.step_move.x = 0;
+// 	d->g.step_move.y = 0;
+// }
+
+// void	ft_init_boucle_raycasting(t_data *d, int i)
+// {
+// 	d->g.hit = 0;
+// 	d->g.cam_x = 2 * i / (double)W - 1;
+// 	d->g.ray_dir.x = d->ply.dir.x + d->ply.cam.x * d->g.cam_x;
+// 	d->g.ray_dir.y = d->ply.dir.y + d->ply.cam.y * d->g.cam_x;
+// 	d->g.map.x = (int)d->ply.pos.x;
+// 	d->g.map.y = (int)d->ply.pos.y;
+// 	if (d->g.ray_dir.x != 0)
+// 		d->g.delta.x = fabs(1 / d->g.ray_dir.x);
+// 	else
+// 		d->g.delta.x = 1e30;
+// 	if (d->g.ray_dir.y != 0)
+// 		d->g.delta.y = fabs(1 / d->g.ray_dir.y);
+// 	else
+// 		d->g.delta.y = 1e30;
+// }
+
+// void	ft_second_init_boucle_raycasting(t_data *d)
+// {
+// 	if (d->g.ray_dir.x < 0)
+// 	{
+// 		d->g.step_move.x = -1;
+// 		d->g.side.x = ((d->ply.pos.x) - d->g.map.x) * d->g.delta.x;
+// 	}
+// 	else
+// 	{
+// 		d->g.step_move.x = 1;
+// 		d->g.side.x = (d->g.map.x + 1.0 - (d->ply.pos.x)) * d->g.delta.x;
+// 	}
+// 	if (d->g.ray_dir.y < 0)
+// 	{
+// 		d->g.step_move.y = -1;
+// 		d->g.side.y = ((d->ply.pos.y) - d->g.map.y) * d->g.delta.y;
+// 	}
+// 	else
+// 	{
+// 		d->g.step_move.y = 1;
+// 		d->g.side.y = (d->g.map.y + 1.0 - (d->ply.pos.y)) * d->g.delta.y;
+// 	}
+// }
+
+void	ft_hit_wall(t_data *d)
+{
+	while (d->g.hit == 0)
+	{
+		if (d->g.side.x < d->g.side.y)
+		{
+			d->g.side.x += d->g.delta.x;
+			d->g.map.x += d->g.step_move.x;
+			d->g.wall_side = 0;
+		}
+		else if (d->g.side.y < d->g.side.x)
+		{
+			d->g.side.y += d->g.delta.y;
+			d->g.map.y += d->g.step_move.y;
+			d->g.wall_side = 1;
+		}
+		if (d->map[d->g.map.y][d->g.map.x] != '0'
+			&& d->map[d->g.map.y][d->g.map.x] != 'W'
+			&& d->map[d->g.map.y][d->g.map.x] != 'E'
+			&& d->map[d->g.map.y][d->g.map.x] != 'N'
+			&& d->map[d->g.map.y][d->g.map.x] != 'S')
+			d->g.hit = 1;
+	}
+}
+
+void	ft_principal_boucle(t_data *d)
+{
+	if (d->g.wall_side == 0)
+		d->g.perp_wall_dist = d->g.side.x - d->g.delta.x;
+	else
+		d->g.perp_wall_dist = d->g.side.y - d->g.delta.y;
+	d->g.line_height = (int)(H / d->g.perp_wall_dist);
+	d->g.draw.x = -d->g.line_height / 2 + H / 2;
+	if (d->g.draw.x < 0)
+		d->g.draw.x = 0;
+	d->g.draw.y = d->g.line_height / 2 + H / 2;
+	if (d->g.draw.y >= H)
+		d->g.draw.y = H - 1;
+	if (d->g.wall_side == 0)
+		d->g.wall_x = d->ply.pos.y + d->g.perp_wall_dist * d->g.ray_dir.y;
+	else
+		d->g.wall_x = d->ply.pos.x + d->g.perp_wall_dist * d->g.ray_dir.x;
+	d->g.wall_x -= floor(d->g.wall_x);
+	d->g.tex_x = (int)(d->g.wall_x * (double)d->tex.no->width);
+	if (d->g.wall_side == 0 && d->g.map.x < (int)d->ply.pos.x)
+		d->g.tex_x = TEXW - d->g.tex_x - 1;
+	if (d->g.wall_side == 1 && d->g.map.y > (int)d->ply.pos.y)
+		d->g.tex_x = TEXW - d->g.tex_x - 1;
+	d->g.step = 1.0 * TEXH / d->g.line_height;
+	d->g.tex_pos = (d->g.draw.x - H / 2 + d->g.line_height / 2) * d->g.step;
+}
+
+void	ft_color_wall(t_data *d, int i)
+{
+	int	j;
+
+	j = d->g.draw.x;
+	while (j < d->g.draw.y)
+	{
+		if (d->g.wall_side == 0 && d->g.map.x < (int)d->ply.pos.x)
+			d->g.color = ft_get_uin32(d->tex.we->pixels,
+					d->tex.we->width * (int)d->g.tex_pos * 4
+					+ (int)d->g.tex_x * 4);
+		else if (d->g.wall_side == 0 && d->g.map.x > (int)d->ply.pos.x)
+			d->g.color = ft_get_uin32(d->tex.ea->pixels,
+					d->tex.ea->width * (int)d->g.tex_pos * 4
+					+ (int)d->g.tex_x * 4);
+		else if (d->g.wall_side == 1 && d->g.map.y < (int)d->ply.pos.y)
+			d->g.color = ft_get_uin32(d->tex.no->pixels,
+					d->tex.no->width * (int)d->g.tex_pos * 4
+					+ (int)d->g.tex_x * 4);
+		else if (d->g.wall_side == 1 && d->g.map.y > (int)d->ply.pos.y)
+			d->g.color = ft_get_uin32(d->tex.so->pixels,
+					d->tex.so->width * (int)d->g.tex_pos * 4
+					+ (int)d->g.tex_x * 4);
+		mlx_put_pixel(d->im.background, i, j, d->g.color);
+		d->g.tex_pos += d->g.step;
+		j++;
+	}
+}
+
 void	ft_raycasting(t_data *d)
 {
-	int		i;
-	int		map_x;
-	int		map_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	cam_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	delta_x;
-	double	delta_y;
-	double	side_x;
-	double	side_y;
-	double	step_x;
-	double	step_y;
-	int		hit;
-	int		wall_side;
-	double	perp_wall_dist;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	double	wall_x;
-	int		tex_x;
-	double	step;
-	double	tex_pos;
-	int		j;
-	int		color;
+	int	i;
 
-	wall_side = 0;
-	step_x = 0;
-	step_y = 0;
+	ft_init_raycasting(d);
 	i = -1;
-	dir_x = d->ply.dir.x;
-	dir_y = d->ply.dir.y;
-	plane_x = d->ply.cam.x;
-	plane_y = d->ply.cam.y;
 	while (++i < W)
 	{
-		hit = 0;
-		cam_x = 2 * i / (double)W - 1;
-		ray_dir_x = dir_x + plane_x * cam_x;
-		ray_dir_y = dir_y + plane_y * cam_x;
-		map_x = (int)d->ply.pos.x;
-		map_y = (int)d->ply.pos.y;
-		if (ray_dir_x != 0)
-			delta_x = fabs(1 / ray_dir_x);
-		else
-			delta_x = 1e30;
-		if (ray_dir_y != 0)
-			delta_y = fabs(1 / ray_dir_y);
-		else
-			delta_y = 1e30;
-		if (ray_dir_x < 0)
-		{
-			step_x = -1;
-			side_x = ((d->ply.pos.x) - map_x) * delta_x;
-		}
-		else
-		{
-			step_x = 1;
-			side_x = (map_x + 1.0 - (d->ply.pos.x)) * delta_x;
-		}
-		if (ray_dir_y < 0)
-		{
-			step_y = -1;
-			side_y = ((d->ply.pos.y) - map_y) * delta_y;
-		}
-		else
-		{
-			step_y = 1;
-			side_y = (map_y + 1.0 - (d->ply.pos.y)) * delta_y;
-		}
-		while (hit == 0)
-		{
-			if (side_x < side_y)
-			{
-				side_x += delta_x;
-				map_x += step_x;
-				wall_side = 0;
-			}
-			else if (side_y < side_x)
-			{
-				side_y += delta_y;
-				map_y += step_y;
-				wall_side = 1;
-			}
-			if (d->map[map_y][map_x] != '0' && d->map[map_y][map_x] != 'W'
-				&& d->map[map_y][map_x] != 'E' && d->map[map_y][map_x] != 'N'
-				&& d->map[map_y][map_x] != 'S')
-				hit = 1;
-		}
-		if (wall_side == 0)
-			perp_wall_dist = side_x - delta_x;
-		else
-			perp_wall_dist = side_y - delta_y;
-		line_height = (int)(H / perp_wall_dist);
-		draw_start = -line_height / 2 + H / 2;
-		if (draw_start < 0)
-			draw_start = 0;
-		draw_end = line_height / 2 + H / 2;
-		if (draw_end >= H)
-			draw_end = H - 1;
-		if (wall_side == 0)
-			wall_x = d->ply.pos.y + perp_wall_dist * ray_dir_y;
-		else
-			wall_x = d->ply.pos.x + perp_wall_dist * ray_dir_x;
-		wall_x -= floor(wall_x);
-		tex_x = (int)(wall_x * (double)d->tex.no->width);
-		if (wall_side == 0 && ray_dir_x > 0)
-			tex_x = TEXW - tex_x - 1;
-		if (wall_side == 1 && ray_dir_x < 0)
-			tex_x = TEXW - tex_x - 1;
-		step = 1.0 * TEXH / line_height;
-		tex_pos = (draw_start - H / 2 + line_height / 2) * step;
-		j = draw_start;
-		while (j < draw_end)
-		{
-			tex_pos += step;
-			if (wall_side == 0 && map_x < (int)d->ply.pos.x)
-				color = ft_get_uin32(d->tex.we->pixels, d->tex.we->width
-						* (int)tex_pos * 4 + (int)tex_x * 4);
-			else if (wall_side == 0 && map_x > (int)d->ply.pos.x)
-				color = ft_get_uin32(d->tex.ea->pixels, d->tex.ea->width
-						* (int)tex_pos * 4 + (int)tex_x * 4);
-			else if (wall_side == 1 && map_y < (int)d->ply.pos.y)
-				color = ft_get_uin32(d->tex.no->pixels, d->tex.no->width
-						* (int)tex_pos * 4 + (int)tex_x * 4);
-			else if (wall_side == 1 && map_y > (int)d->ply.pos.y)
-				color = ft_get_uin32(d->tex.so->pixels, d->tex.so->width
-						* (int)tex_pos * 4 + (int)tex_x * 4);
-			mlx_put_pixel(d->im.background, i, j, color);
-			j++;
-		}
+		ft_init_boucle_raycasting(d, i);
+		ft_second_init_boucle_raycasting(d);
+		ft_hit_wall(d);
+		ft_principal_boucle(d);
+		ft_color_wall(d, i);
 	}
 }

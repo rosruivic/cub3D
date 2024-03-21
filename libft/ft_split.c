@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roruiz-v <roruiz-v@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 13:54:36 by roruiz-v          #+#    #+#             */
-/*   Updated: 2023/06/09 16:33:59 by roruiz-v         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:54:23 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ static size_t	ft_calcrows(const char *s, char c)
 			words++;
 		while (s[i] != c && s[i] != '\0')
 			i++;
-	}	
+	}
 	return (words);
 }
 
 /**
  * @brief Recorre el string y posiciona, cada vez, un índice (w_ini) al 
- * 				principio de cada "palabra" mientras el índice (i) avanza hasta
- * 				el carácter inmediatamente posterior al final de dicha palabra; la 
- * 				diferencia entre ambos índices establece la longitud de la palabra 
- * 				de que se trate en ese momento. Con esos datos, pasamos la info a 
- * 				ft_substr, que se encarga de reservar la memoria para cada palabra 
- * 				dentro del segundo nivel de la matriz y le pasa el contenido. 
+ * 			principio de cada "palabra" mientras el índice (i) avanza hasta
+ * 			el carácter inmediatamente posterior al final de dicha palabra; la 
+ * 			diferencia entre ambos índices establece la longitud de la palabra 
+ * 			de que se trate en ese momento. Con esos datos, pasamos la info a 
+ * 			ft_substr, que se encarga de reservar la memoria para cada palabra 
+ * 			dentro del segundo nivel de la matriz y le pasa el contenido. 
  * @param matrix La matriz con los punteros de punteros ya creados
  * @param s El string original con la "frase" a dividir
  * @param c El carácter separador de palabras (se elimina de la frase)
@@ -68,7 +68,7 @@ static char	**ft_matrix_pos(char **matrix, const char *s, char c, size_t words)
 	word = 0;
 	i = 0;
 	while (word < words && s[i] != '\0')
-	{	
+	{
 		while (s[i] == c && s[i] != '\0')
 			i++;
 		if (s[i] != c && s[i] != '\0')

@@ -1,6 +1,6 @@
 #include "../includes/cub3D.h"
 
-static void	ft_background(t_data *d)
+void	ft_background(t_data *d)
 {
 	int	i;
 	int	j;
@@ -39,113 +39,64 @@ static void	ft_background(t_data *d)
 // 		game->player->instances[0].x += 64;
 // A, S, D, W player movement
 // <-, -> view movement
-void	ft_keyhook(mlx_key_data_t keydata, void *param)
-{
-	t_data	*d;
-	double	old_dir_x;
-	double	old_plane_x;
-	double	move_speed;
-	double	rot_speed;
 
-	d = param;
-	move_speed = 5.0 * d->mlx->delta_time;
-	rot_speed = 3.0 * d->mlx->delta_time;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(d->mlx);
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT
-			|| keydata.action == MLX_PRESS))
-	{
-		if (d->map[(int)(d->ply.pos.y + move_speed
-				* d->ply.dir.y)][(int)(d->ply.pos.x + move_speed
-				* d->ply.dir.x)] != '1')
-		{
-			d->ply.pos.y += move_speed * d->ply.dir.y;
-			d->ply.pos.x += move_speed * d->ply.dir.x;
-			ft_background(d);
-			ft_raycasting(d);
-			ft_move_minimap(d);
-		}
-		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
-	}
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT
-			|| keydata.action == MLX_PRESS))
-	{
-		if (d->map[(int)(d->ply.pos.y - move_speed
-				* d->ply.dir.y)][(int)(d->ply.pos.x - move_speed
-				* d->ply.dir.x)] != '1')
-		{
-			d->ply.pos.y -= move_speed * d->ply.dir.y;
-			d->ply.pos.x -= move_speed * d->ply.dir.x;
-			ft_background(d);
-			ft_raycasting(d);
-			ft_move_minimap(d);
-		}
-		printf("pos_X:%f, pos_Y:%f\n", d->ply.pos.x, d->ply.pos.y);
-	}
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT
-			|| keydata.action == MLX_PRESS))
-	{
-		if (d->map[(int)(d->ply.pos.y + move_speed
-				* d->ply.cam.y)][(int)(d->ply.pos.x + move_speed
-				* d->ply.cam.x)] != '1')
-		{
-			d->ply.pos.y += move_speed * d->ply.cam.y;
-			d->ply.pos.x += move_speed * d->ply.cam.x;
-			ft_background(d);
-			ft_raycasting(d);
-			ft_move_minimap(d);
-		}
-	}
-	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT
-			|| keydata.action == MLX_PRESS))
-	{
-		if (d->map[(int)(d->ply.pos.y - move_speed
-				* d->ply.cam.y)][(int)(d->ply.pos.x - move_speed
-				* d->ply.cam.x)] != '1')
-		{
-			d->ply.pos.y -= move_speed * d->ply.cam.y;
-			d->ply.pos.x -= move_speed * d->ply.cam.x;
-			ft_background(d);
-			ft_raycasting(d);
-			ft_move_minimap(d);
-		}
-	}
+void	ft_right(t_data *d, mlx_key_data_t keydata)
+{
 	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))
 	{
-		old_dir_x = d->ply.dir.x;
-		d->ply.dir.x = d->ply.dir.x * cos(rot_speed) - d->ply.dir.y
-			* sin(rot_speed);
-		d->ply.dir.y = old_dir_x * sin(rot_speed) + d->ply.dir.y
-			* cos(rot_speed);
-		old_plane_x = d->ply.cam.x;
-		d->ply.cam.x = d->ply.cam.x * cos(rot_speed) - d->ply.cam.y
-			* sin(rot_speed);
-		d->ply.cam.y = old_plane_x * sin(rot_speed) + d->ply.cam.y
-			* cos(rot_speed);
+		d->old_dir = d->ply.dir.x;
+		d->ply.dir.x = d->ply.dir.x * cos(d->rot_speed) - d->ply.dir.y
+			* sin(d->rot_speed);
+		d->ply.dir.y = d->old_dir * sin(d->rot_speed) + d->ply.dir.y
+			* cos(d->rot_speed);
+		d->old_plane = d->ply.cam.x;
+		d->ply.cam.x = d->ply.cam.x * cos(d->rot_speed) - d->ply.cam.y
+			* sin(d->rot_speed);
+		d->ply.cam.y = d->old_plane * sin(d->rot_speed) + d->ply.cam.y
+			* cos(d->rot_speed);
 		ft_background(d);
 		ft_raycasting(d);
 		ft_move_minimap(d);
-		printf("Izquierda\n");
 	}
+}
+
+void	ft_left(t_data *d, mlx_key_data_t keydata)
+{
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT
 			|| keydata.action == MLX_PRESS))
 	{
-		old_dir_x = d->ply.dir.x;
-		d->ply.dir.x = d->ply.dir.x * cos(-rot_speed) - d->ply.dir.y
-			* sin(-rot_speed);
-		d->ply.dir.y = old_dir_x * sin(-rot_speed) + d->ply.dir.y
-			* cos(-rot_speed);
-		old_plane_x = d->ply.cam.x;
-		d->ply.cam.x = d->ply.cam.x * cos(-rot_speed) - d->ply.cam.y
-			* sin(-rot_speed);
-		d->ply.cam.y = old_plane_x * sin(-rot_speed) + d->ply.cam.y
-			* cos(-rot_speed);
+		d->old_dir = d->ply.dir.x;
+		d->ply.dir.x = d->ply.dir.x * cos(-d->rot_speed) - d->ply.dir.y
+			* sin(-d->rot_speed);
+		d->ply.dir.y = d->old_dir * sin(-d->rot_speed) + d->ply.dir.y
+			* cos(-d->rot_speed);
+		d->old_plane = d->ply.cam.x;
+		d->ply.cam.x = d->ply.cam.x * cos(-d->rot_speed) - d->ply.cam.y
+			* sin(-d->rot_speed);
+		d->ply.cam.y = d->old_plane * sin(-d->rot_speed) + d->ply.cam.y
+			* cos(-d->rot_speed);
 		ft_background(d);
 		ft_raycasting(d);
 		ft_move_minimap(d);
-		printf("Derecha\n");
 	}
+}
+
+void	ft_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_data	*d;
+
+	d = param;
+	d->move_speed = 5.0 * d->mlx->delta_time;
+	d->rot_speed = 3.0 * d->mlx->delta_time;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(d->mlx);
+	ft_w(d, keydata);
+	ft_s(d, keydata);
+	ft_d(d, keydata);
+	ft_a(d, keydata);
+	ft_right(d, keydata);
+	ft_left(d, keydata);
 }
 
 void	ft_graphic(t_data *d)

@@ -4,6 +4,7 @@ static void	ft_check_valid_files(t_data *d)
 {
 	int	fd;
 
+	printf("so:%s\n", d->path.so);
 	fd = open(d->path.no, O_RDONLY);
 	if (fd < 0)
 		ft_error_file(d, ERROR_NORTH_TEXTURE_FILE_FD);

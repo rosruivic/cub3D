@@ -1,21 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_file_rgb_atoi.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: roruiz-v <roruiz-v@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 18:30:06 by roruiz-v          #+#    #+#             */
+/*   Updated: 2024/03/22 18:30:16 by roruiz-v         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
-
-/* El tipo uint32_t es un tipo numérico entero sin signo que puede almacenar 
-valores entre 0 y 4294967295. Cuando almacenas un valor hexadecimal en una 
-variable uint32_t, estás almacenando el valor numérico que representa ese 
-hexadecimal, no la representación de caracteres del hexadecimal.
-
-Por ejemplo, si tienes el valor hexadecimal 0xFF, esto es equivalente al 
-valor decimal 255. Si almacenas 0xFF en una variable uint32_t, la variable 
-contendrá el valor 255, no la cadena de caracteres "FF".
-
-En este código, la función rgb_to_hex convierte los valores RGB a un valor 
-uint32_t en formato hexadecimal. Los operadores de desplazamiento << se utilizan 
-para mover los bits de los valores RGB a las posiciones correctas en el valor 
-hexadecimal, y el operador | se utiliza para combinar estos valores. 
-El operador & 0xFF se utiliza para asegurar que solo se utilicen los 8 bits 
-menos significativos de cada valor RGB.
- */
 
 uint32_t	ft_rgb_to_hex(int r, int g, int b)
 {

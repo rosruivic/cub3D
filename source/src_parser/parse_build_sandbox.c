@@ -26,7 +26,6 @@ static void	ft_build_sandbox_first_line(t_data *d)
 	while (++j < ft_longer_row(d) + 2)
 		d->box[0][j] = 'X';
 	d->box[0][j] = '\0';
-	ft_printf("%s\n", d->box[0]);
 }
 
 static int	ft_build_sandbox_inter_lines(t_data *d, int rows)
@@ -48,7 +47,6 @@ static int	ft_build_sandbox_inter_lines(t_data *d, int rows)
 		while (++j < ft_longer_row(d) + 2)
 			d->box[i][j] = 'X';
 		d->box[i][j] = '\0';
-		ft_printf("%s\n", d->box[i]);
 	}
 	return (i);
 }
@@ -79,6 +77,4 @@ void	ft_build_sandbox(t_data *d)
 	ft_build_sandbox_first_line(d);
 	i = ft_build_sandbox_inter_lines(d, d->dim_map.y);
 	ft_build_sandbox_last_line(d, i);
-	ft_printf("%s\n", d->box[i]);
-	ft_printf("\n");
 }

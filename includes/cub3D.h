@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 18:23:46 by jsaavedr          #+#    #+#             */
+/*   Updated: 2024/03/22 18:24:17 by jsaavedr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -46,11 +57,9 @@ typedef enum e_error
 	ERROR_MAP_DUPLICATE_PLAYER,
 	ERROR_MAP_NO_CLOSED_WALLS,
 	ERROR_MALLOC,
-
 	// graphics errors (juan):
 	ERROR_GAME_WINDOW = 200,
 	ERROR_MAP_INVALID_TEXTURE_FILE,
-
 	END = 999
 }					t_error;
 
@@ -217,6 +226,7 @@ void				ft_error_file(t_data *d, int error);
 void				ft_error_pull_data(t_data *d, int error);
 void				ft_error_pull_map(t_data *d, int error);
 void				ft_error_map_data(t_data *d, int error);
+void				ft_error_graphic(t_data *d, int error);
 
 /* ************************************************************* */
 /* *************           900 - UTILS            ************** */
@@ -233,12 +243,5 @@ void				ft_free_null_void_return(char **str);
 char				*ft_strjoin_free(char *s1, char *s2);
 int					ft_detect_forbidden_chars(char *name);
 char				**ft_freedom_null(char **matrix);
-void				ft_print_matrix(char **mtx);
-
-/* ************************************************************* */
-/* *************           999 - DEBUG            ************** */
-/* ************************************************************* */
-
-void				ft_print_data(t_data *d);
 
 #endif

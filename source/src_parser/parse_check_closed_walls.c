@@ -53,6 +53,5 @@ void	ft_check_closed_walls(t_data *d)
 	ft_build_sandbox(d);
 	ft_cub_flood_fill(d->ply.pos.x + 1, d->ply.pos.y + 1, d);
 	ft_locate_zeroes(d);
-	ft_print_matrix(d->box);
 	d->box = ft_freedom_null(d->box);
 }

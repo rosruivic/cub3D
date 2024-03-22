@@ -16,15 +16,3 @@ char	*ft_delete_nl(char *str)
 	}
 	return (str);
 }
-
-void	ft_print_matrix(char **mtx)
-{
-	int	i;
-
-	i = -1;
-	if (!mtx)
-		return ;
-	while (++i < ft_matrix_len(mtx))
-		ft_printf("%s\n", mtx[i]);
-	ft_printf("\n");
-}

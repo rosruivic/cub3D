@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/22 18:22:58 by jsaavedr          #+#    #+#             */
+/*   Updated: 2024/03/22 18:22:59 by jsaavedr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/cub3D.h"
 
 // d->file = NULL;    liberar en el parseo (normal y error)
@@ -36,24 +48,6 @@ static void	ft_init_data(t_data *d)
 	d->flag = 0;
 }
 
-void	ft_print_data(t_data *d)
-{
-	ft_printf("\n");
-	ft_printf("FICHERO del mapa:        %s\n", d->file);
-	ft_printf("FICHERO textura NO:      %s\n", d->path.no);
-	ft_printf("FICHERO textura SO:      %s\n", d->path.so);
-	ft_printf("FICHERO textura WE:      %s\n", d->path.we);
-	ft_printf("FICHERO textura EA:      %s\n", d->path.ea);
-	ft_printf("FICHERO RGB cielo:       %d,%d,%d\n", d->rgb_c[0], d->rgb_c[1],
-			d->rgb_c[2]);
-	printf("FICHERO RGB hex cielo:   %06X\n", d->hex_c);
-	ft_printf("FICHERO RGB suelo:       %d,%d,%d\n", d->rgb_f[0], d->rgb_f[1],
-			d->rgb_f[2]);
-	printf("FICHERO RGB hex suelo:   %06X\n", d->hex_f);
-	ft_printf("\nFICHERO coor plyer:   (%d,%d)\n", d->ply.pos.x, d->ply.pos.y);
-	ft_printf("\nFICHERO dir player:   (%d,%d)\n", d->ply.dir.x, d->ply.dir.y);
-}
-
 static void	ft_parser(t_data *d, char *file)
 {
 	ft_parse_file_name(d, file);
@@ -72,16 +66,10 @@ void	ft_free_last_textures(t_data *d)
 	mlx_delete_texture(d->tex.mini_w);
 }
 
-void	ft_l(void)
-{
-	system("leaks -q cub3D");
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	atexit(ft_l);
 	if (argc == 1)
 		ft_error_argmts(ERROR_NO_MAP_FILE);
 	else if (argc > 2)
@@ -89,7 +77,6 @@ int	main(int argc, char **argv)
 	ft_init_data(&data);
 	ft_parser(&data, argv[1]);
 	ft_graphic(&data);
-	ft_print_data(&data);
 	ft_free_structs(&data);
 	ft_free_last_textures(&data);
 	return (0);
